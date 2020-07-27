@@ -48,7 +48,6 @@ def main():
         allow_reentry=True,
         per_user=True,
         per_chat=True,
-        # per_message=True
     )
 
     updater.dispatcher.add_handler(conversation_handler)
@@ -60,6 +59,7 @@ def main():
 
     updater.start_polling()
     print("Started polling...")
+
     updater.idle()
 
 
