@@ -1,28 +1,14 @@
-from telegram.ext import PollAnswerHandler
-import logging
+from telegram.ext import PollAnswerHandler, Filters
+from telegram import KeyboardButton, ReplyKeyboardMarkup, ChatAction, ParseMode
 from warnings import warn
 from lib import deco
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackQueryHandler
-poll_data=[]
 
-def clear_poll_data():
-    poll_data=[]    
 
-def poll_callback(update, context):
-    answer = update.poll_answer
-    poll_id = answer.poll_id        
-    poll_callback=context.bot_data[poll_id]["poll_callback"]
-    data=context.bot_data[poll_id]
-    data.update({"answers": answer['option_ids']})
-    poll_data.append(context.bot_data[poll_id])
-    logging.info("handling poll: "+str(poll_id)+ "----  With callback: "+str(poll_callback))
-    if poll_callback in deco.poll_handlers:
-        #TODO support multiple states (same keys) instead of just the last added
-        i=-1
-        deco.poll_handlers[poll_callback][i](update, context, answer=answer['option_ids'], chat_id=context.bot_data[poll_id]["chat_id"])
-    else:
-        warn("Poll callback not implemented!")
+def sendMsg(update, context, message, mode=1):
+    mode=[None,ParseMode.MARKDOWN, ParseMode.MARKDOWN_V2, ParseMode.HTML][mode]
+    return context.bot.send_message(chat_id=update.effective_chat.id, text=message, parse_mode=mode)
 
 def generate_keyboard(button_name_list, callback_list, n_columns):
     """
@@ -68,6 +54,46 @@ def emulate_callback_query(update, context, callback_data):
     # This is a cheap trick
     if callback_data in deco.entry_states:  
         deco.entry_states[callback_data][-1].callback(update, context)
+
+class buttons_menu():
+    def __init__(self, buttons_dict, question="Choose: ", n_columns=1):
+        """
+        buttons_dict : {callback : button_text}
+        question : str
+        n_columns : int 
+            Number of columns in menu
+        """
+        self.buttons_dict=buttons_dict
+        self.n_columns=n_columns
+        self.options=[self.buttons_dict[k] for k in self.buttons_dict]
+        self.callbacks=[k for k in self.buttons_dict]
+        self.question=question
+
+    def create_kb(self):
+        """
+        Generates the keyboard for the widget
+        """
+        n_columns=self.n_columns
+        button_name_list=self.options
+        self.handler=CallbackQueryHandler(lambda u,c: deco.send_typing_action(self.button_handler(u, c)))
+        self.keyboard=generate_keyboard(self.options, self.callbacks, n_columns)
+        self.dp.add_handler(self.handler)
+    
+    def finalize(self):
+        self.dp.remove_handler(self.handler)
+        self.message.delete()
+
+    def send(self, update, context):
+        self.dp=context.dispatcher
+        self.create_kb()
+        self.reply_markup = InlineKeyboardMarkup(self.keyboard)
+        self.message=context.bot.send_message(update.effective_chat.id, self.question, reply_markup=self.reply_markup)    
+
+    def button_handler(self, update, context):                                                                                             
+        query = update.callback_query.data
+        emulate_callback_query(update, context, query)
+        self.finalize()
+
 
 class multi_selection_widget():
     """
@@ -115,7 +141,7 @@ class multi_selection_widget():
     """
     def __init__(self, options=[], question="אמא בחרו:  " ,
     add_confirm_button=True, spacing=5, callback=None, callback_data=None, 
-    extra_buttons=[], cancel_buttons=[], confirm_button_text="Approve", single_option=False, n_columns=1, 
+    extra_buttons=[], cancel_buttons=[], confirm_button_text="אישור", single_option=False, n_columns=1, 
     checked_symbol="✓", unchecked_symbol="✗", autoremove=True,payload_key="last_multi_sel",
     chosen=[], alert_message_text="אנא בחרו לפחות תוספת אחת מהרשימה."):
         """
@@ -182,23 +208,17 @@ class multi_selection_widget():
         restore : bool
             Restores the last state from user_data by using the payload_key.
         """        
-        #TODO check if user_data is compatible before attempting restore     
         self.dp=context.dispatcher
         self.context=context
         self.update=update
         print("payload: ", self.payload_key)
         print("keys: ", [k for k  in self.context.user_data])
-        if restore:            
+        if restore:
             try:
-                chosen=[] if self.payload_key in self.context.user_data and len(self.context.user_data[self.payload_key])==0 else self.context.user_data[self.payload_key]["chosen"]
-                if (self.single_option and len(chosen)>1) or len(chosen)>len(self.options):
-                    chosen=[]
-                self.chosen=chosen
+                self.chosen=[] if self.payload_key in self.context.user_data and len(self.context.user_data[self.payload_key])==0 else self.context.user_data[self.payload_key]["chosen"]
             except KeyError:
                 pass
-            print("Restoring chosen indexes: ", self.chosen)
-        else:
-            self.chosen=[]
+
         self.create_kb()
         self.reply_markup = InlineKeyboardMarkup(self.keyboard)
         self.message=context.bot.send_message(update.effective_chat.id, self.question, reply_markup=self.reply_markup)    
@@ -313,5 +333,16 @@ class multi_selection_widget():
                 self.toggle_check(i)
                 self.reply_markup = InlineKeyboardMarkup(self.keyboard)
                 self.message.edit_reply_markup(reply_markup=self.reply_markup)
-            except ValueError:
+            except e:
                 print("Unregistered callback: ", query)
+
+###########################################################################
+# MISC
+
+def send_typing_action(func):
+    """Sends typing action while processing func command."""
+    @wraps(func)
+    def command_func(update, context, *args, **kwargs):
+        context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=ChatAction.TYPING)
+        return func(update, context,  *args, **kwargs)
+    return command_func

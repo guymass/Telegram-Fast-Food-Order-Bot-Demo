@@ -1,6 +1,7 @@
 import logging
 from settings import admin_list
 from telegram.ext import (CommandHandler, MessageHandler, ConversationHandler, CallbackQueryHandler)
+from telegram import ChatAction
 from telegram.ext.dispatcher import run_async
 from functools import wraps
 
@@ -61,42 +62,6 @@ def register_state_message(key, filters, **kwargs):
             entry_states[key] = [val]        
         return wrapped
     return wrap_register_state_message
-###########################################################################
-
-def register_poll_sender(key, callback, **kwargs):
-    def wrap_register_state_callback(func):
-        @wraps(func)
-        def wrapped (*a, **bb):
-            log(func)
-            poll_id, state=func(*a, **bb)
-            chat_id = bb["chat_id"] if "chat_id" in bb else a[0].effective_chat.id
-            a[1].bot_data[poll_id].update({
-                "poll_callback": callback,
-                "chat_id": chat_id,                
-                })
-            return state
-        val = CallbackQueryHandler(wrapped, **kwargs)
-        if key in entry_states:
-            entry_states[key].append(val)
-        else:
-            entry_states[key] = [val]        
-        return wrapped
-    return wrap_register_state_callback
-
-poll_handlers = {}
-def register_state_poll_callback(key):
-    def wrap_register_state_poll(func):
-        @wraps(func)
-        def wrapped (*a, **bb):
-            log(func)
-            return func(*a, **bb)
-        val = wrapped
-        if key in entry_states:
-            poll_handlers[key].append(val)
-        else:
-            poll_handlers[key] = [val]        
-        return wrapped
-    return wrap_register_state_poll
 
 ###########################################################################
 
@@ -142,12 +107,21 @@ def restricted(func):
     def wrapped(update, context, *args, **kwargs):
         user_id = update.effective_message.from_user.id
         user_name = update.effective_message.from_user.username
-        print(user_id)
-        print(user_name)
-        if user_id not in admin_list:
-            query = update.callback_query
-            print("גישה חסומה עבורכם. {}.".format(user_id))
-            query.edit_message_text('משתמש לא מאושר לשימוש בפקודה זו!')
+        if user_id not in admin_list and not "adm_id" in context.bot_data:
+            print("User attempted unallowed command. User_id {}".format(user_id))
+            context.bot.send_message(update.effective_chat.id, 'Comando desconhecido. Tente usar /start')
             return  # quit function
         return func(update, context, *args, **kwargs)
     return wrapped
+
+
+###########################################################################
+# MISC
+
+def send_typing_action(func):
+    """Sends typing action while processing func command."""
+    @wraps(func)
+    def command_func(update, context, *args, **kwargs):
+        context.bot.send_chat_action(chat_id=update.effective_message.chat_id, action=ChatAction.TYPING)
+        return func(update, context,  *args, **kwargs)
+    return command_func

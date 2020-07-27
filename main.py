@@ -21,12 +21,14 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
+
 @deco.run_async
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.error('Update "%s" caused error "%s"', update, context.error)
 
 def main():
+    print("\n------------------------------------------------------------\nStarting bot")
     persistance = init_persistance()
     defaults = Defaults(parse_mode=ParseMode.HTML)
     updater = Updater(token, persistence=persistance, use_context=True, defaults=defaults,
@@ -54,11 +56,10 @@ def main():
     for dispather in deco.global_dispatchers:
         updater.dispatcher.add_handler(dispather)
 
-    updater.dispatcher.add_handler(PollAnswerHandler(utils.poll_callback, pass_update_queue=True,  pass_user_data=True,  pass_chat_data=True))
-
     #updater.dispatcher.add_error_handler(error)
 
     updater.start_polling()
+    print("Started polling...")
     updater.idle()
 
 
