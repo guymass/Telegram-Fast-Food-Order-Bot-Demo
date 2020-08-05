@@ -8,7 +8,7 @@ from settings import CHATID
 @deco.conversation_command_handler("products")
 def products(update, context):
     products = db.images.find({})
-    update.message.reply_text(" אלו הם המוצרים הזמינים לבוט.\n\n")
+    update.message.reply_text("\U0000200F אלו הם המוצרים הזמינים לבוט.\n\n")
     for prd in products:
         imageId = prd['ImageId']
         msg = prd['ImageText']

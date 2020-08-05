@@ -79,12 +79,12 @@ def extra_manager(update, context):
             print("ANSWER POLL:" + str(ret))
 
     sleep(1)
-    reply_text = emojize("\n Your selection {} was saved.")
+    reply_text = emojize("\n \U0000200F בחירתכם {} התקבלה.")
 
-    #back_button = emojize(" \U000021AA Back")
-    approve_salad_first_selection = emojize(" \U000021AA Approve")
-    cancel_text = emojize(" \U000021AA Cancel")
-    #completed_text = emojize(" \U000021AA Finish")
+    #back_button = emojize("\U0000200F \U000021AA חזרה")
+    approve_salad_first_selection = emojize("\U0000200F \U000021AA אשרו בחירה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+    #completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
 
     product_keyboard +=  [[InlineKeyboardButton(approve_salad_first_selection, callback_data="cb_approve_first_salads"), InlineKeyboardButton(cancel_text, callback_data="cancel")]]
     product_keyboard = list(product_keyboard)

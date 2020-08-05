@@ -19,11 +19,11 @@ def tart_manager(update, context):
     selection_title = ""
 
     if tortia_selection == "cb_antricott":
-        selection_title = "Antricott"
+        selection_title = "אנטריקוט"
     elif tortia_selection == "cb_chicken_p":
-        selection_title = "Chicken Shnitzel"
+        selection_title = "פרגית"
     elif tortia_selection == "cb_chicken_breast":
-        selection_title = "Chicken Breast"
+        selection_title = "חזה עוף"
     elif tortia_selection == "cb_kabbab":
         selection_title = "קבב"
     
@@ -44,7 +44,7 @@ def tart_manager(update, context):
             print("SELECTED SIZE" + str(meal_size_keyword))
 
 
-            reply_text = emojize(" \U0001F32E Your selection {} {} was saved. \U0001F32E \n\n".format(selection_title, size['SizeName']))            
+            reply_text = emojize("\U0000200F \U0001F32E בחירתכם {} {} התקבלה. \U0001F32E \n\n".format(selection_title, size['SizeName']))            
 
             
             context.user_data['UserTortiaSelection'] = selection_title
@@ -64,12 +64,12 @@ def tart_manager(update, context):
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
 
-    reply_text += emojize(" \U0001F374 Please select this course salads: ")
+    reply_text += emojize("\U0000200F \U0001F374 אנא בחרו את הסלטים למנה זו.")
 
-    tortia_sald_choice = emojize(" \U0001F957 Salads")
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
-#    completed_text = emojize(" \U000021AA Finish")
+    tortia_sald_choice = emojize("\U0000200F \U0001F957 סלטים")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+#    completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
 
     product_keyboard +=  [[InlineKeyboardButton(tortia_sald_choice, callback_data="cb_tortia_salad")]]
     

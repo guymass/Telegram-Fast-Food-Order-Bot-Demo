@@ -32,19 +32,20 @@ def jabeta_salad(update, context):
     
 
 
-    questions_all_salads = ["Salad (Cucamber and Tomato)", "Lettuce Salad", "Spicy Onion Salad", "Onion Salad (not spicy)", "Shifka (hot)", "Sweet Salsa", "Spicy Salsa", "Chimichuri", "Lemon", "Turkish Salad", "Tahina", "Avocado Salad"]
+    questions_all_salads = ["סלט ירקות", "סלט חסה", "סלט בצל חריף", "סלט בצל לא חריף", "שיפקה", "סלסה מתוקה", "סלסה חריפה", "צ\'ימיצ\'ורי", "לימון", "סלט טורקי", "טחינה", "אבוקדו"]
 
-    
 
-    reply_text = emojize("\n Your selection {} was saved.".format(user_jabeta_selection))
-    salad_manager = emojize(" \U000021AA Approve")
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
+
+
+    reply_text = emojize("\n \U0000200F בחירתכם {} התקבלה.".format(user_jabeta_selection))
+    salad_manager = emojize("\U0000200F \U000021AA אישור בחירה")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
 
     payload_key=keys[0]
     poll=utils.multi_selection_widget(
         options=questions_all_salads,
-        question=" \U0001F371 Please select the salads for this course: \n",
+        question="\U0000200F \U0001F371  אנא בחרו את הסלטים למנה זו. \n",
         n_columns=2,
         spacing=5,        
         checked_symbol="✅", 
@@ -58,28 +59,28 @@ def jabeta_salad(update, context):
         callback=poll2
     )
 
-    poll.send(update, context, True)
+    poll.send(update, context)
 
 
 def poll2(answer, update, context):
     global keys
-    tortia_side_choice = ["Chips", "Onion Rings", "Fried Cabbage", "Potatos"]
+    tortia_side_choice = ["צ'יפס", "טבעות בצל", "כרובית", "פוטטוס"]
     #print(context.bot_data["poll1"]["answer"])
     context.user_data['Poll1Answer'] = context.bot_data["poll1"]["answer"]
-    cancel_text = emojize(" \U000021AA Cancel")
-    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
     payload_key=keys[1]
     poll=utils.multi_selection_widget(
         #options=list(f"Option: {i}" for i in range(4)),
         options = tortia_side_choice,
-        question=" \U0001F35F Please select only one side course. \n",
+        question="\U0000200F \U0001F35F אנא בחרו תוספת אחת!  \n",
         single_option=True,
         n_columns=1,
         spacing=5,
         checked_symbol="✅", 
         unchecked_symbol="☑️",
         payload_key=payload_key,
-        confirm_button_text="Approve",
+        confirm_button_text="אישור",
         cancel_buttons=[
             InlineKeyboardButton(cancel_text, callback_data="cancel"),
             InlineKeyboardButton(back_button, callback_data="poll1")
@@ -101,23 +102,25 @@ def finish(choices, update, context):
     selected_salads = ", ".join(context.user_data[keys[0]]["answer"])
     selected_side = ", ".join(context.user_data[keys[1]]["answer"])
 
-    jabeta_dish_text = user_jabeta_selection + ", With the following selections: \nSalads: {} ".format(selected_salads) + "\nSide Course {} ".format(selected_side)
+    jabeta_dish_text = user_jabeta_selection + ", עם התוספות הבאות: \n סלטים: {}".format(selected_salads) + "\nתוספת: {} ".format(selected_side)
     #text=""
-    #text+="\n  Salads: "+str(context.chat_data[keys[0]]["answer"])+"\n"
-    #text+=" תוספת: "+str(context.chat_data[keys[1]]["answer"])+"\n"
+    #text+="\n \U0000200F סלטים: "+str(context.chat_data[keys[0]]["answer"])+"\n"
+    #text+="\U0000200F תוספת: "+str(context.chat_data[keys[1]]["answer"])+"\n"
 
     data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(jabeta_dish_text), 'Price': user_jabeta_price }
     db.cart.insert_one(data)
     
-    reply_text = " Your Order DEtails: \n"
-    reply_text += "\n  "+str(jabeta_dish_text)+"\n"
+    reply_text = "\U0000200F להלן פרטי המנה שהזמנתם: \n"
+    reply_text += "\n \U0000200F "+str(jabeta_dish_text)+"\n"
 
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
+    reply_text += "להוספת שתיה בחרו מתפריט המשקאות."
+    drinks_button = emojize("\U0000200F \U0001F964 שתיה קרה")
+    back_button = emojize("\U0000200F \U000021AA לתפריט הקודם")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
 
-    completed_text = emojize(" \U000021AA Approve")
+    completed_text = emojize("\U0000200F \U00002611 אשר הזמנה")
 
-    end_poll_keyboard = [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
+    end_poll_keyboard = [[InlineKeyboardButton(drinks_button, callback_data="cb_menu_drinks"), InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
     reply_markup_end_polls = InlineKeyboardMarkup(end_poll_keyboard)
     context.bot.send_message(update.effective_chat.id, reply_text, reply_markup=reply_markup_end_polls)  
     #query.edit_message_text(reply_text, reply_markup=reply_markup_end_polls)

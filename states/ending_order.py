@@ -15,7 +15,7 @@ def ending_order(update, context):
     print("TYPING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + str(text))
 
     cancel_keyboard = []
-    cancel_keyboard =  [[InlineKeyboardButton("✅ Approve", callback_data="done")], [InlineKeyboardButton("❌ Cancel", callback_data="cancel")]]
+    cancel_keyboard =  [[InlineKeyboardButton("✅ אישור", callback_data="done")], [InlineKeyboardButton("❌ ביטול", callback_data="cancel")]]
     cancel_keyboard = list(cancel_keyboard)
     reply_markup_cancel = InlineKeyboardMarkup(cancel_keyboard)
 
@@ -28,5 +28,5 @@ def ending_order(update, context):
         },upsert=True
         )
 
-        update.message.reply_text(" Thank you for your purchace! You can cancel your order by clicking the cancel buttin at any time.\n", reply_markup=reply_markup_cancel)
+        update.message.reply_text("\U0000200F 👩‍🌾 אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על ביטול!\n\n 👩‍🌾 תודה רבה שרכשתם אצלנו, לאישור ההזמנה לחצו על אישור.\n", reply_markup=reply_markup_cancel)
     return states.SIXTH

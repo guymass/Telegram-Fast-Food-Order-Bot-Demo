@@ -32,19 +32,19 @@ def jabetas_manager(update, context):
         print(ex['callback'])
 
         if selection_extras == ex['callback']:
-            meal_text = str(ex['ItemName']) + ' $' + str(ex['Price'])
+            meal_text = str(ex['ItemName']) + ' ' + str(ex['Price']) + " ש\"ח"
             data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':ex['ItemName'], 'Price': ex['Price']}
             db.cart.insert_one(data)
         else:
             pass
 
-    reply_text = emojize(" \U0001F32F Your selection {} was saves. Please continue shopping or click the  Finish button to complete the order.\U0001F32F \n\n".format(meal_text))
+    reply_text = emojize("\U0000200F \U0001F32F בחירתכם {} נשמרה בהזמנה, המשיכו בהזמנה או לחצו על הזמן עכשיו לסיום ההזמנה. \U0001F32F \n\n".format(meal_text))
 
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
-    completed_text = emojize(" \U000021AA Finish")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+    completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
 
-    product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back_extras"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
+    product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
     product_keyboard = list(product_keyboard)
     reply_markup_extra_selected = InlineKeyboardMarkup(product_keyboard)
 

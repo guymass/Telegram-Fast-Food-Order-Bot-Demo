@@ -17,6 +17,12 @@ def all_messages(update, context):
         "MessageText":text
     }
 
+    # If this is a bot request message, run the determined function:
+    func=context.user_data.get("run_next")
+    if func and callable(func):
+        func(update, context)
+    
+
     if db.messages.count_documents({'MessageId': msgId}, limit=1) > 0:
         print("הודעה רשומה כבר!")
         pass

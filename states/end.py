@@ -17,7 +17,7 @@ def end(update, context):
     user_id = context.user_data['user_id']
     if username == None:
         username = user_data['username']
-    query.edit_message_text("Goodbye {}".format(username))
+    query.edit_message_text("להתראות {}".format(username))
     chat_id = CHATID
 
     cursor = db.messages.find({})
@@ -27,16 +27,16 @@ def end(update, context):
 
             msgId = m["MessageId"]
             if msgId == 0:
-                
+                print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - >>>>>>>>>>הודעה ריקה - אין ID")
                 pass
             else:
                 try:
                     context.bot.delete_message(chat_id, msgId)
                 except:
-                    print(str(msgId) + "Message does not exist!")
+                    print(str(msgId) + "<<<< הודעה אינה קיימת!")
                     pass
         else:
-            print("No Messages")
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - >>>>>>>>>> אין הודעות")
             pass
     start_message_id = context.user_data['start_message_id']
     start_message_id = start_message_id - 20
@@ -55,6 +55,6 @@ def end(update, context):
     
 
     resdel = db.cart.delete_many({'UserOrderId': user_id})
-    print("MEssages and UserCart deleted! \n")
+    print("ההודעות והעגלה נמחקו!\n")
     sleep(1)
     welcome(update, context)

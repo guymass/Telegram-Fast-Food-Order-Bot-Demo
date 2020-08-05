@@ -1,6 +1,10 @@
 __all__ = [
     "start_order",
+    "product_choice",
+    "quantity_choice",
+    "typing_name",
     "add_notes",
+    "typing_order_address",
     "ending_order",
     "done",
     "main_tortias",
@@ -17,9 +21,11 @@ __all__ = [
     "extras_manager",
     "drinks_manager",
     "tortia_salad",
+    "salad_manager",
     "extra_manager",
     "complete_order",
     "hamburger_salad",
     "jabeta_salad",
+    "myorders",
     "end"
 ]

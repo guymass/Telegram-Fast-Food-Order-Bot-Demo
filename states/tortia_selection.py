@@ -21,14 +21,14 @@ def tortia_selection(update, context):
     user_id = query.from_user.id
     product_keyboard = []
     
-    reply_text = emojize(" \U0001F32E Please select your size: \U0001F32E \n\n")
+    reply_text = emojize("\U0000200F \U0001F32E לבחירתכם מבחר גדלים להזמנה \U0001F32E \n\n")
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
     for size in db.sizes.find({}):
 
         button_name = emojize(size['SizeName'])
         price = str(size['Price'])
-        button_name += emojize(" $" + str(price))
+        button_name += emojize(" " + str(price) + " ש\"ח")
 
         button_callback = size['callback']
 
@@ -36,8 +36,8 @@ def tortia_selection(update, context):
         product_keyboard += [[InlineKeyboardButton(button_name, callback_data=button_callback)]]
 
     
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
 
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back_tortias"), InlineKeyboardButton(cancel_text, callback_data="cancel")]]

@@ -10,7 +10,7 @@ def getlist(update, context):
     for r in result:
 
         if r["Status"] == "Waiting":
-            msg = emojize( " :mailbox:<b> הזמנה בהמתנה:</b>\n\n" + str(r["Status"]) + " מצב הזמנה :exclamation:" + "\n" + str(r["Mobile"]) + " - :iphone: " + "\n" + str(r["Address"] )+ " - :truck: " + "\n" + str(r["Product"]) + ":package: " , use_aliases=True)
+            msg = emojize( "\U0000200F :mailbox:<b> הזמנה בהמתנה:</b>\n\n" + str(r["Status"]) + " מצב הזמנה :exclamation:" + "\n" + str(r["Mobile"]) + " - :iphone: " + "\n" + str(r["Address"] )+ " - :truck: " + "\n" + str(r["Product"]) + ":package: " , use_aliases=True)
             msg += emojize("\n" + str(r["Quantity"]) + " \U00002B05\n\U00002139 " + str(r["Message"]) + " \U00002139\n ", use_aliases=True)
             update.message.reply_text(msg, parse_mode='HTML')
 

@@ -16,7 +16,6 @@ def completed(update, context):
     user_id = context.user_data['user_id']
 
     one_completed_order = {
-
         "OrderNumber":order_number,
         "UserId":data['user_id'],
         "UserName":data['username'],
@@ -31,7 +30,7 @@ def completed(update, context):
 
     }
     db.completed_orders.insert_one(one_completed_order)
-    context.bot.send_message(chat_id, " 👩‍🌾 הזמנתכם נשלחה! בקרוב יצרו עמכם קשר, היו זמינים. תודה ולהתראות.")
+    context.bot.send_message(chat_id, "\U0000200F 👩‍🌾 הזמנתכם נשלחה! בקרוב יצרו עמכם קשר, היו זמינים. תודה ולהתראות.")
 
     sleep(5)
     delete_messages(update, context)

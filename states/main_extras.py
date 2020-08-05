@@ -20,26 +20,26 @@ def main_extras(update, context):
     user_id = query.from_user.id
     product_keyboard = []
     
-    reply_text = emojize(" \U0001F9C6 Extra Side Courses: \U0001F9C6 \n\n")
+    reply_text = emojize("\U0000200F \U0001F9C6 לבחירתכם מבחר תוספות ומנות ראשונות \U0001F9C6 \n\n")
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
     for item in db.extras.find({}):
 
-        button_name = emojize(" \U0001F7E3 " + str(item['ItemName']))
+        button_name = emojize("\U0000200F \U0001F7E3 " + str(item['ItemName']))
         price = str(item['Price'])
-        button_name += emojize(" $" + str(price))
+        button_name += emojize(" " + str(price) + " ש\"ח")
 
         button_callback = item['callback']
 
         product_keyboard += [[InlineKeyboardButton(button_name, callback_data=button_callback)]]
 
 
-    back_button = emojize(" \U000021AA Back")
-    cancel_text = emojize(" \U000021AA Cancel")
+    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize("\U0000200F \U00002716 ביטול")
 
 
     
-    completed_text = emojize(" \U000021AA Finish")
+    completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
 
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]

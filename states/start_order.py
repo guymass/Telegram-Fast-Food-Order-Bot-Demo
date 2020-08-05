@@ -10,16 +10,30 @@ def start_order(update, context):
     query = update.callback_query
     query.answer()
     text = query
+    user_id = context.user_data['user_id']
+    CartId = context.user_data['CartId']
+    cursor_cart = db.cart.find({})
+    for cur in cursor_cart:
+        if cur['UserOrderId'] == str(user_id):
+            del_cart = db.cart.delete_many({'UserOrderId': str(user_id)})
+        if cur['CartId'] == str(CartId):
+            del_cart = db.cart.delete_many({'CartId': str(CartId)})
+
     fullname = context.user_data['fullname']
+    context.user_data["UserPhone"] = ""
+    context.user_data["UserAddress"] = ""
+    context.user_data["UserComment"] = ""
+    context.user_data["UserLocation"] = ""
+
     opts = []
     o = []
     product_keyboard = []
 
     if context.user_data.get(text):
-        reply_text = ' {} I already have your user details\n' \
-                     'The information I have is: \n {}'.format(common.facts_to_str(context.user_data))
+        reply_text = '\U0000200F הבחירה שלכם {} כבר שמורה אצלי\n' \
+                     'המידע שברשותי כרגע הינו:\n {}'.format(common.facts_to_str(context.user_data))
     else:
-        reply_text = emojize(' \U00002668 \U00002668 Please select the items to add to your order\n\n')
+        reply_text = emojize('\U0000200F \U00002668 אנא בחרו מהתפריט את הפריטים הרצויים. כאשר החלטתם שההזמנה מוכנה לחצו על אישור  הזמנה. \U00002668 \n\n')
         chat_id = update.effective_chat.id
 
         button_name = ""
@@ -27,23 +41,23 @@ def start_order(update, context):
 
         for item in db.mainmenu.find({}):
 
-            if item['ButtonName'] == "Tortias":
+            if item['ButtonName'] == "טורטיות":
                 button_name = emojize("\U0001F32E " + str(item['ButtonName']))
                 button_callback = item['callback']
 
-            elif item['ButtonName'] == "Hamburgers":
+            elif item['ButtonName'] == "המבורגרים":
                 button_name = emojize("\U0001F354 " + str(item['ButtonName']))
                 button_callback = item['callback']
             
-            elif item['ButtonName'] == "Jabeta Sandwitch":
+            elif item['ButtonName'] == "כריך ג'בטה":
                 button_name = emojize("\U0001F32F " + str(item['ButtonName']))
                 button_callback = item['callback']
 
-            elif item['ButtonName'] == "Extras":
+            elif item['ButtonName'] == "תוספות":
                 button_name = emojize("\U0001F35F " + str(item['ButtonName']))
                 button_callback = item['callback']
 
-            elif item['ButtonName'] == "Cold Drinks":
+            elif item['ButtonName'] == "שתיה":
                 button_name = emojize("\U0001F964 " + str(item['ButtonName']))
                 button_callback = item['callback']
             else:
@@ -51,8 +65,9 @@ def start_order(update, context):
 
             product_keyboard += [[InlineKeyboardButton(button_name, callback_data=button_callback)]]
 
-        cancel_text = emojize(" \U00002716 Cancel")
-
+        my_orders = emojize("\U0000200F \U00002716 ההזמנות שלי")
+        cancel_text = emojize("\U0000200F \U00002716 ביטול")
+        product_keyboard +=  [[InlineKeyboardButton(my_orders, callback_data="cb_myorders")]]
         product_keyboard +=  [[InlineKeyboardButton(cancel_text, callback_data="cancel")]]
         product_keyboard = list(product_keyboard)
         reply_markup_product = InlineKeyboardMarkup(product_keyboard)

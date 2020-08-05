@@ -20,7 +20,9 @@ def start(update, context):
 
     chat_id = update.effective_chat.id
     user_id = update.message.from_user.id
+    context.user_data['UserId'] = user_id
     username = update.message.from_user.username
+    context.user_data['UserName'] = username
     message_date = update.message.date
     message_id = update.message.message_id
     first_name = update.effective_message.from_user.first_name
@@ -55,8 +57,8 @@ def start(update, context):
     context.user_data['CartId'] = str(randomCartId)
     res = db.logo.find_one({"ImageText":"logo"})
     url = res['ImageId']
-    msg = " \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \U0001F3AF \n\n"
-    msg += " \U0001F4CB Welcome {} \n This is our demo orders bot for you to tryout.\n".format(fullname)+"\n\n"
+    msg = "\U0000200F \U0001F32E \U0001F32F \U0001F354 \U0001F969 \U0001F357 \U0001F371 \U0001F959 \U0001F964 \U0001F35F \U0001F957 \n\n"
+    msg += "\U0000200F \U0001F4CB ברוכים הבאים {} אני\n באביס בוט להזמנות, אשמח לקבל את הזמנתכם. אתם יכולים להוסיף כמה פריטים שתרצו עד שתאשרו את ההזמנה. אין אפשרות לבטל פריטים אז אם טעיתם בהוספת הפריטים אל תהססו פשוט לבטל ולהתחיל הזמנה חדשה. \n\n".format(fullname)+"\n\n"
     message = emojize(str(msg))
     user_full_details = emojize(str(user_id) + " - " + str(username))
     context.bot.send_photo(chat_id, url, message, parse_mode='HTML')
@@ -105,14 +107,14 @@ def start(update, context):
     reply_text = ""
 
     if context.user_data != "":
-        reply_text += "\U0001F468 Welcome back {}\n".format(fullname)
+        reply_text += "\U0000200F\U0001F468 תודה שחזרתם אלינו".format(fullname)
 
     else:
-        reply_text += "\n To start your order {} please click the start button".format(fullname) + "\nYou can add as many items as you require untill you choose to end the order. You may cancel at anytime and start a new order in case you made a mistake.\n"
+        reply_text += "\U0000200F\nלהתחלת הזמנה לחץ על התחל. {} ".format(fullname) + "אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על סיום או כתיבת\n /cancel | ביטול\n"
 
 
-    begin_text = emojize(" \U00002611 Start Order ")
-    cancel_text = emojize("\U00002716 Cancel ")
+    begin_text = emojize("\U0000200F                                    \U00002611 התחל                                 ")
+    cancel_text = emojize("\U0000200F                                   \U00002716 ביטול                                ")
     begin_text = str(begin_text)
     cancel_text = str(cancel_text)
 
