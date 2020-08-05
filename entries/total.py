@@ -21,13 +21,13 @@ def total(update, context):
         status = r["Status"]
         if status == "Delivered":
             total_orders.append(r["Quantity"])
-            msg = emojize("\U0000200F☑️ הזמנה שסופקה:" + "\n" + str(r["UserId"]) + "\n" + str(r["UserName"]) + "\n" + str(r["FullName"]) + "\n" + "קוד מוצר: " + str(r["Product"]) + "\n" + "כמות: " +str(r["Quantity"]))
-            msg2 = emojize("\U0000200F\n" + str(r["Mobile"]) + "\n" + str(r["Address"]) + "\n" + str(r["Message"]) + "\n\U0001F973 " + str(r["Status"]) + " \U0001F973\n" + str(r["Date"]))
+            msg = emojize("☑️ הזמנה שסופקה:" + "\n" + str(r["UserId"]) + "\n" + str(r["UserName"]) + "\n" + str(r["FullName"]) + "\n" + "קוד מוצר: " + str(r["Product"]) + "\n" + "כמות: " +str(r["Quantity"]))
+            msg2 = emojize("\n" + str(r["Mobile"]) + "\n" + str(r["Address"]) + "\n" + str(r["Message"]) + "\n\U0001F973 " + str(r["Status"]) + " \U0001F973\n" + str(r["Date"]))
             context.bot.send_message(chat_id, msg+msg2)
 
     for i in range(0, result.count()):
         sum = sum + total_orders[i]"""
 
-    msg = emojize("\U0000200F סיכום סך הזמנות {} ש\"ח ".format(total))
+    msg = emojize(" סיכום סך הזמנות {} ש\"ח ".format(total))
     print(msg)
     context.bot.send_message(chat_id, msg)

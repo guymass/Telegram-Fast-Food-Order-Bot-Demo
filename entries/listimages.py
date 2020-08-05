@@ -96,7 +96,7 @@ def listimages(update, context):
 
         db.images.insert_one(video_item)
 
-        video_details = emojize("\U0000200F תאריך העלאה: "+str(upload_date)+"\n"
+        video_details = emojize(" תאריך העלאה: "+str(upload_date)+"\n"
                                 + "על ידי: "+"@"+str(username)+"\n"
                                 + "קוד: "+str(video_code)+"\n----------------\n")
         video_details += cap
@@ -116,7 +116,7 @@ def listimages(update, context):
         pass
     else:
         context.bot.send_message(
-            chat_id, text="\U0000200F משהו קרה והקובץ לא נשמר, נסו שנית.")
+            chat_id, text=" משהו קרה והקובץ לא נשמר, נסו שנית.")
         pass
 
     if caption == "logo":

@@ -28,7 +28,7 @@ def hum_selection_copy(update, context):
 
             if hum_selection_keyword == "cb_hum_extra":
                 context.user_data['HumburgerExtra'] = hum_selection_keyword
-                reply_text = emojize("\U0000200F \U0001F354 בחירתכם לתוספת עבור 10 ש\"ח התקבלה \U0001F354 \n\n")
+                reply_text = emojize(" \U0001F354 בחירתכם לתוספת עבור 10 ש\"ח התקבלה \U0001F354 \n\n")
                 meal_text = "תוספת ב- 10 ש\"ח"
                 #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price':sel['Price']  }
                 doc = db.cart.find_one_and_update({"CartId": cart_id, 'UserOrderId':user_id,}, {"$set": {"HumburgerExtra": meal_text}}, upsert=True)
@@ -37,20 +37,20 @@ def hum_selection_copy(update, context):
     
             elif hum_selection_keyword in hum_list :
                 context.user_data['HumburgerSelection'] = hum_selection_keyword
-                reply_text = emojize("\U0000200F \U0001F354 אנא בחרו את מידת העשייה! \U0001F354 \n\n")
+                reply_text = emojize(" \U0001F354 אנא בחרו את מידת העשייה! \U0001F354 \n\n")
         else:
             pass
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
 
-    medium_button = emojize("\U0000200F \U0001F969 מדיום")
-    well_button = emojize("\U0000200F \U0001F969 עשוי")
-    welldone_button = emojize("\U0000200F \U0001F969 עשוי היטב")
+    medium_button = emojize(" \U0001F969 מדיום")
+    well_button = emojize(" \U0001F969 עשוי")
+    welldone_button = emojize(" \U0001F969 עשוי היטב")
     product_keyboard +=  [[InlineKeyboardButton(medium_button, callback_data="cb_medium_humburger"), InlineKeyboardButton(well_button, callback_data="cb_well_humburger"), InlineKeyboardButton(welldone_button, callback_data="cb_welldone_humburger")]]
 
 
-    back_button = emojize("\U0000200F \U000021AA חזרה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back_humburgers"), InlineKeyboardButton(cancel_text, callback_data="cancel")]]
     product_keyboard = list(product_keyboard)

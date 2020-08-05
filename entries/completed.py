@@ -30,7 +30,7 @@ def completed(update, context):
 
     }
     db.completed_orders.insert_one(one_completed_order)
-    context.bot.send_message(chat_id, "\U0000200F 👩‍🌾 הזמנתכם נשלחה! בקרוב יצרו עמכם קשר, היו זמינים. תודה ולהתראות.")
+    context.bot.send_message(chat_id, " 👩‍🌾 הזמנתכם נשלחה! בקרוב יצרו עמכם קשר, היו זמינים. תודה ולהתראות.")
 
     sleep(5)
     delete_messages(update, context)

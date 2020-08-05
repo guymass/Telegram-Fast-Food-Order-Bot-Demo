@@ -25,5 +25,5 @@ def add_notes(update, context):
         },upsert=True
         )
 
-        update.message.reply_text("\U0000200F 👩‍🌾 אם יש לכם הערה להוסיף אנא רשמו אותה כעת או כתבו \"ללא\" ושלחו, אני ממתין...⏳", reply_markup=reply_markup_cancel)
+        update.message.reply_text(" 👩‍🌾 אם יש לכם הערה להוסיף אנא רשמו אותה כעת או כתבו \"ללא\" ושלחו, אני ממתין...⏳", reply_markup=reply_markup_cancel)
         return states.FIFTH

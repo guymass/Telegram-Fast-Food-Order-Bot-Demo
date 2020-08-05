@@ -25,63 +25,35 @@ def meal_manager(update, context):
     selection_title = ""
 
     if keyword == "cb_regulare_meal":
-        selection_title = "ארוחה רגילה"
+        selection_title = "Regulare Meal"
         context.user_data['UserSelectedMeal'] = selection_title
+        context.user_data['UserMealPrice'] = 50.00
         print("TORTIA SELECTION: $$$$$$$ " + str(selection_title))
     elif keyword == "cb_double_meal":
-        selection_title = "ארוחה כפולה"
+        selection_title = "Double Meal"
         context.user_data['UserSelectedMeal'] = selection_title
+        context.user_data['UserMealPrice'] = 60.00
         print("TORTIA SELECTION: $$$$$$$ " + str(selection_title))
     elif keyword == "cb_triple_meal":
-        selection_title = "ארוחה משולשת"
+        selection_title = "Triple Meal"
         context.user_data['UserSelectedMeal'] = selection_title
+        context.user_data['UserMealPrice'] = 75.00
         print("TORTIA SELECTION: $$$$$$$ " + str(selection_title))
     
     product_keyboard = []
-    """c_tortias = db.tortias.find({})
-    for s_tort in c_tortias:
-        if s_tort['callback'] == keyword:
-            #res1 = db.cart.update({'CartId':randomCartId}, {'$set':{'Order':s_tort['ItemName'] }})
-            #res2 = db.cart.update({'CartId':randomCartId}, {'$set':{'Price':int(50.00)}})
-            #res1 = db.cart.update({"CartId": randomCartId}, {"$set": {"Order": s_tort['ItemName']}})
-            #res2 = db.cart.update({"CartId": randomCartId}, {"$set": {"Price": 50.00}})
-            if keyword == "cb_regulare_meal":
-                #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(selection_title) + ' ' +  s_tort['ItemName'], 'Price': 50.00 }
-                context.user_data['UserSelectedMeal'] = selection_title
-                context.user_data['UserMealPrice'] = 50.00
 
-            elif keyword == "cb_double_meal":
-                #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(selection_title) + ' ' +  s_tort['ItemName'], 'Price': 60.00 }
-                context.user_data['UserSelectedMeal'] = selection_title
-                context.user_data['UserMealPrice'] = 60.00
-            elif keyword == "cb_triple_meal":
-                #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(selection_title) + ' ' +  s_tort['ItemName'], 'Price': 75.00 }
-                context.user_data['UserSelectedMeal'] = selection_title
-                context.user_data['UserMealPrice'] = 75.00
-            #db.cart.insert_one(data)
-            
-
-            reply_text = emojize("\U0000200F \U0001F32E אנא בחרו את התוספות למנה {}.\U0001F32E \n\n".format(s_tort['ItemName']))
-            print("S_TORT_CB " + str(s_tort['callback']) )
-            print("ItemName: " + str(s_tort['ItemName']))
-        else: 
-
-            pass"""
-#    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
+    salad_manager = emojize(" \U000021AA Approve")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
+    completed_text = emojize(" \U00002611 הזמן עכשיו")
 
 
-    salad_manager = emojize("\U0000200F \U000021AA אישור בחירה")
-    back_button = emojize("\U0000200F \U000021AA חזרה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
-    completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
-
-
-    questions_all_salads = ["סלט ירקות", "סלט חסה", "סלט בצל חריף", "סלט בצל לא חריף", "שיפקה", "סלסה מתוקה", "סלסה חריפה", "צ\'ימיצ\'ורי", "לימון", "סלט טורקי", "טחינה", "אבוקדו"]
-
+    questions_all_salads = ["Vegetable Salad", "Lettuce Salad", "Spicy Onion Salad", "Onion Salad", "Spicy Shifka", "Sweet Salsa", "Spicy Salsa", "Chimichuri", "Lemon", "Turkish Salad", "Tahina", "Avocado"]
+    
     payload_key=keys[0]
     poll=utils.multi_selection_widget(
         options=questions_all_salads,
-        question="\U0000200F \U0001F371  אנא בחרו את הסלטים למנה {} \n".format(selection_title),
+        question=" \U0001F371 Please choose the salads for {}. \n".format(selection_title),
         n_columns=2,
         spacing=5,        
         checked_symbol="✅", 
@@ -103,23 +75,23 @@ def meal_manager(update, context):
 
 def poll2(answer, update, context):
     global keys
-    tortia_side_choice = ["צ'יפס", "טבעות בצל", "כרובית", "פוטטוס"]
+    tortia_side_choice = ["Fried Chips", "Onion Rings", "Fried Cabbage", "Potatos"]
     print(context.bot_data["poll1"]["answer"])
     context.user_data['Poll1Answer'] = context.bot_data["poll1"]["answer"]
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
-    back_button = emojize("\U0000200F \U000021AA חזרה")
+    cancel_text = emojize(" \U00002716 Cancel")
+    back_button = emojize(" \U000021AA Back")
     payload_key=keys[1]
     poll=utils.multi_selection_widget(
         #options=list(f"Option: {i}" for i in range(4)),
         options = tortia_side_choice,
-        question="\U0000200F \U0001F35F אנא בחרו תוספת אחת!  \n",
+        question=" \U0001F35F PLease select only one choice! \n",
         single_option=True,
         n_columns=1,
         spacing=5,
         checked_symbol="✅", 
         unchecked_symbol="☑️",
         payload_key=payload_key,
-        confirm_button_text="אישור",
+        confirm_button_text="OK",
         cancel_buttons=[
             InlineKeyboardButton(cancel_text, callback_data="cancel"),
             InlineKeyboardButton(back_button, callback_data="poll1")
@@ -140,21 +112,22 @@ def finish(choices, update, context):
     user_meal_price = context.user_data['UserMealPrice'] 
     selected_salads = ", ".join(context.user_data[keys[0]]["answer"])
     selected_side = ", ".join(context.user_data[keys[1]]["answer"])
-    meal_dish_text = user_selected_meal + ", עם התוספות הבאות: \n סלטים: {}".format(selected_salads) + "\nתוספת: {} ".format(selected_side)
+    meal_dish_text = user_selected_meal + ", With the following salads: \n {}".format(selected_salads) + "\nWith extra course, {} ".format(selected_side)
 
 
     data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_dish_text), 'Price': user_meal_price }
     db.cart.insert_one(data)
     
-    reply_text = "\U0000200F להלן פרטי המנה שהזמנתם: \n"
-    reply_text += "\n \U0000200F "+str(meal_dish_text)+"\n"
+    reply_text = "You Order Details: \n"
+    reply_text += "\n  "+str(meal_dish_text)+"\n"
+    reply_text += "Would you like to add a drink?"
+    drinks_button = emojize(" \U0001F964 Cold Drinks")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
 
-    back_button = emojize("\U0000200F \U000021AA המשך הזמנה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
+    completed_text = emojize(" \U00002611 Approve")
 
-    completed_text = emojize("\U0000200F \U00002611 אשר הזמנה")
-
-    end_poll_keyboard = [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
+    end_poll_keyboard = [[InlineKeyboardButton(drinks_button, callback_data="cb_menu_drinks"), InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
     reply_markup_end_polls = InlineKeyboardMarkup(end_poll_keyboard)
     context.bot.send_message(update.effective_chat.id, meal_dish_text, reply_markup=reply_markup_end_polls)  
     #query.edit_message_text(reply_text, reply_markup=reply_markup_end_polls)

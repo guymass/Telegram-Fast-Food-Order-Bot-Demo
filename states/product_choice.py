@@ -3,6 +3,12 @@ from emoji import emojize
 from lib import (common, deco, states)
 from lib.database import db
 
+
+#######################################################
+# This File is not needed to run the bot but serves as an older example of how I tried to work with Telegra Polls
+# If you choose to delete this file make sure to remove it also from the __init__.py file.
+#
+
 @deco.run_async
 @deco.register_state_callback(states.FIRST, pattern='^p[1-4]$', pass_user_data=True, pass_chat_data=True,  pass_update_queue=True)
 def product_choice(update, context):
@@ -100,10 +106,10 @@ def product_choice(update, context):
             )
 
     if context.user_data.get(category):
-        reply_text = '\U0000200F 👩‍🌾 הבחירה שלכם {} כבר שמורה אצלי\n'.format(common.facts_to_str(context.user_data))
+        reply_text = ' 👩‍🌾 הבחירה שלכם {} כבר שמורה אצלי\n'.format(common.facts_to_str(context.user_data))
 
     else:
-        reply_text = "\U0000200F 👩‍🌾 בחרתם: {} \n".format(category) + '💬 אנא בחרו את הכמות הרצויה.\n'
+        reply_text = " 👩‍🌾 בחרתם: {} \n".format(category) + '💬 אנא בחרו את הכמות הרצויה.\n'
 
     quantity_keyboard = []
     for q in db.qty.find({}):

@@ -22,7 +22,7 @@ def done(update, context):
     user_location = user_data["UserLocation"]
     total_user_data = user_data['Total']
 
-    completed_order_message = "\U0000200F \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336\n\n"
+    completed_order_message = " \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336\n\n"
     completed_order_message += "\U00002139 מספר הזמנה: " + str(OrderId) + "\n\U00002139 " + "שם המזמין: " + str(FullName) + "\n\U00002139 " + "שם משתמש: " + str(UserName) + "\n\U00002139 " + "מספר זיהוי: " + str(UserId) + "\n\n"
     completed_order_message += "\U0000260E מספר טלפון: " + str(user_phone) + "\n \U0001F697 כתובת משלוח: " + str(user_address) + "\n\U0001F4AC הערות: " + str(user_comment) + "\n\n"
     completed_order_message += "\U0001F514 להלן רשימת הפריטים שהוזמנו: \n"
@@ -77,7 +77,7 @@ def done(update, context):
     print("TOTAL ORDER PAYMENT == " + str(total_user_data))
     #print("COMPLETE ORDER PAYMENT == " + str(complete_order_payment))
     
-    reply_text = "\U0000200F \U0001F4CB  הזמנתכם התקבלה במערכת! אנו ניצור עמכם קשר בקרוב להשלמת פרטי התשלום ומשלוח, אנא שימו לב להודעה מאיתנו בצאט של הטלאגרם. \n"
+    reply_text = " \U0001F4CB  הזמנתכם התקבלה במערכת! אנו ניצור עמכם קשר בקרוב להשלמת פרטי התשלום ומשלוח, אנא שימו לב להודעה מאיתנו בצאט של הטלאגרם. \n"
 
     done_keyboard = []
     done_keyboard =  [[InlineKeyboardButton("סיום", callback_data="cb_end")]]

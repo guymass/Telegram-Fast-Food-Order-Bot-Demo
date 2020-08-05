@@ -7,9 +7,9 @@
 #     chat_id = update.effective_message.chat_id
 
 #     if context.user_data['fullname'] != "":
-#         reply_text = "\U0000200F👩‍🌾 תודה שחזרת אלינו -  {} \n".format(context.user_data.keys())
+#         reply_text = "👩‍🌾 תודה שחזרת אלינו -  {} \n".format(context.user_data.keys())
 #     else:
-#         reply_text = "\U0000200F\n👩‍🌾 להתחלת הזמנה לחץ על התחל. {} ".format(context.user_data['fullname']) + "אתם יכולים להתחיל מחדש על ידי לחיצה על ביטול\n /cancel | ביטול\n"
+#         reply_text = "\n👩‍🌾 להתחלת הזמנה לחץ על התחל. {} ".format(context.user_data['fullname']) + "אתם יכולים להתחיל מחדש על ידי לחיצה על ביטול\n /cancel | ביטול\n"
 
 #     sleep(5)
 #     start_keyboard = [

@@ -38,11 +38,11 @@ def start(update, context):
     }
 
     if db.messages.count_documents({'MessageId': message_id}, limit=1) > 0:
-        print("הודעה רשומה כבר!" + str(message_id))
+        print("MessageID Already Registered" + str(message_id))
         pass
     else:
         db.messages.insert_one(item)
-        print("ההודעה נשמרה ;-)" + str(message_id))
+        print("MessageId Saved!" + str(message_id))
 
 # Create use cart to save selections and delete if one already exists for user.
 
@@ -57,8 +57,8 @@ def start(update, context):
     context.user_data['CartId'] = str(randomCartId)
     res = db.logo.find_one({"ImageText":"logo"})
     url = res['ImageId']
-    msg = "\U0000200F \U0001F32E \U0001F32F \U0001F354 \U0001F969 \U0001F357 \U0001F371 \U0001F959 \U0001F964 \U0001F35F \U0001F957 \n\n"
-    msg += "\U0000200F \U0001F4CB ברוכים הבאים {} אני\n באביס בוט להזמנות, אשמח לקבל את הזמנתכם. אתם יכולים להוסיף כמה פריטים שתרצו עד שתאשרו את ההזמנה. אין אפשרות לבטל פריטים אז אם טעיתם בהוספת הפריטים אל תהססו פשוט לבטל ולהתחיל הזמנה חדשה. \n\n".format(fullname)+"\n\n"
+    msg = "\U0001F32E \U0001F32F \U0001F354 \U0001F969 \U0001F357 \U0001F371 \U0001F959 \U0001F964 \U0001F35F \U0001F957 \n\n"
+    msg += " \U0001F4CB Welcome {} to Fast Food Order demo bot.\n select the items you wish to order from the different menues and when you are ready to complete your order just hit the Approve button. Please configure and admin group for the bot and configure its group ID to allow the bot the send the orders to it. \n\n".format(fullname)+"\n\n"
     message = emojize(str(msg))
     user_full_details = emojize(str(user_id) + " - " + str(username))
     context.bot.send_photo(chat_id, url, message, parse_mode='HTML')
@@ -107,14 +107,14 @@ def start(update, context):
     reply_text = ""
 
     if context.user_data != "":
-        reply_text += "\U0000200F\U0001F468 תודה שחזרתם אלינו".format(fullname)
+        reply_text += "\U0001F468 Welcome back {} \n".format(fullname)
 
     else:
-        reply_text += "\U0000200F\nלהתחלת הזמנה לחץ על התחל. {} ".format(fullname) + "אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על סיום או כתיבת\n /cancel | ביטול\n"
+        reply_text += "\n Welcome {}, click Start to begin your order. ".format(fullname) + "You can hit cancel at any time and start a new order.\n"
 
 
-    begin_text = emojize("\U0000200F                                    \U00002611 התחל                                 ")
-    cancel_text = emojize("\U0000200F                                   \U00002716 ביטול                                ")
+    begin_text = emojize("\U00002611 Start")
+    cancel_text = emojize("\U00002716 Cancel")
     begin_text = str(begin_text)
     cancel_text = str(cancel_text)
 

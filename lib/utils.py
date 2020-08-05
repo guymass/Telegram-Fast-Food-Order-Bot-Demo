@@ -154,7 +154,7 @@ class multi_selection_widget():
     """
     def __init__(self, options=[], question="אמא בחרו:  " ,
     add_confirm_button=True, spacing=5, callback=None, callback_data=None, 
-    extra_buttons=[], cancel_buttons=[], confirm_button_text="אישור", single_option=False, n_columns=1, 
+    extra_buttons=[], cancel_buttons=[], confirm_button_text="OK", single_option=False, n_columns=1, 
     checked_symbol="✓", unchecked_symbol="✗", autoremove=True,payload_key="last_multi_sel",
     chosen=[], alert_message_text="אנא בחרו לפחות תוספת אחת מהרשימה."):
         """

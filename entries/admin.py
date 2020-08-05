@@ -7,7 +7,7 @@ from emoji import emojize
 def admin(update, context):
     chat_id = update.effective_message.chat_id
     user_id = update.message.from_user.id
-    msg = emojize("\U0000200F \U0001F53D להלן רשימת הפקודות של הבוט \U0001F53D\n\n" +
+    msg = emojize(" \U0001F53D להלן רשימת הפקודות של הבוט \U0001F53D\n\n" +
                   "\U0001f505 להתחלת הזמנה הקלידו \U000025C0 /start\n\n" +
                   "\U0001f505 לצפייה בהזמנות בהמתנה כתבו את הפקודה \U000025C0 /getlist\n\n" +
 		  "\U0001f505 למחיקת רשומות כתבו \U000025C0 /purge\n" +

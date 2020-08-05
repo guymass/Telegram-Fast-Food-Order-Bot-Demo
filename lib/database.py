@@ -1,10 +1,10 @@
 from mongoengine import *
 from urllib import parse
 from pymongo import MongoClient
-from settings import (mongo_host, mongo_user, mongo_password, mongo_collection)
+from settings import (mongo_host, mongo_port, mongo_user, mongo_password, mongo_collection)
 
 username = parse.quote_plus(mongo_user)
 password = parse.quote_plus(mongo_password)
-client = MongoClient('mongodb://%s:%s@%s:27027/' % (username, password, mongo_host), unicode_decode_error_handler='ignore')
+client = MongoClient('mongodb://%s:%s@%s:%s/' % (username, password, mongo_host, mongo_port), unicode_decode_error_handler='ignore')
 
 db = client[mongo_collection]

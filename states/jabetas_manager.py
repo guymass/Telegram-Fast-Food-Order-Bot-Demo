@@ -40,11 +40,11 @@ def jabetas_manager(update, context):
         else:
             pass
 
-    reply_text = emojize("\U0000200F \U0001F32F אנא בחרו את התוספות למנה {}. \U0001F32F \n\n".format(meal_text))
-    jabeta_sald_choice = emojize("\U0000200F \U0001F957 סלטים")
-    back_button = emojize("\U0000200F \U000021AA חזרה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
-    #completed_text = emojize("\U0000200F \U00002611 הזמן עכשיו")
+    reply_text = emojize(" \U0001F32F אנא בחרו את התוספות למנה {}. \U0001F32F \n\n".format(meal_text))
+    jabeta_sald_choice = emojize(" \U0001F957 Salad Choice")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
+    #completed_text = emojize(" \U00002611 הזמן עכשיו")
     product_keyboard +=  [[InlineKeyboardButton(jabeta_sald_choice, callback_data="cb_jabeta_salad")]]
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back_jabetas"), InlineKeyboardButton(cancel_text, callback_data="cancel")]]
     product_keyboard = list(product_keyboard)

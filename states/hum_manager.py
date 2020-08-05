@@ -79,14 +79,14 @@ def hum_manager(update, context):
         else: 
 
             pass
-    reply_text += emojize("\U0000200F \U0001F354 אנא בחרו את התוספות למנה {}. \U0001F354 \n\n".format(meal_text))
+    reply_text += emojize(" \U0001F354 אנא בחרו את התוספות למנה {}. \U0001F354 \n\n".format(meal_text))
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
 
-    hamburger_sald_choice = emojize("\U0000200F \U0001F957 סלטים")
-    back_button = emojize("\U0000200F \U000021AA חזרה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
-    #completed_text = emojize("\U0000200F \U00002611 אישור הזמנה")
+    hamburger_sald_choice = emojize(" \U0001F957 Salad Choice")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
+    #completed_text = emojize(" \U00002611 אישור הזמנה")
     product_keyboard +=  [[InlineKeyboardButton(hamburger_sald_choice, callback_data="cb_hamburger_salad")]]
     
 

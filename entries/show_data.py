@@ -21,14 +21,14 @@ def show_data(update, context):
     note = context.user_data['note']
     date = update.effective_message.date
 
-    message = "\U0000200F \U0001F464 זיהוי משתמש: " + str(user_id)+ "\n\U0001F3F7 שם מלא: " + str(fullname)+ "\n\U0001F3F7 שם משתמש: @" + str(username)+ "\n\U0001F3F7 מוצר: " + str(product) + "\n\U0001F3F7 כמות: "
+    message = " \U0001F464 זיהוי משתמש: " + str(user_id)+ "\n\U0001F3F7 שם מלא: " + str(fullname)+ "\n\U0001F3F7 שם משתמש: @" + str(username)+ "\n\U0001F3F7 מוצר: " + str(product) + "\n\U0001F3F7 כמות: "
     message += str(quantity)+ "\n\U0001F3F7 שם המזמין: " + str(ordername)+ "\n\U0001F4DE נייד: " + str(mobile)+ "\n\U0001F697 כתובת: "
     message += str(address)+ "\n\U00002139 הערת משלוח: " + str(note) + "\nתאריך: " + str(date) + "\n"
     print(message)
     message = emojize(message)
-    msg = emojize("\U0000200F👩‍🌾 אלו הם פרטי ההזמנה עד כה: \n\n {}\n\n תודה שרכשתם אצלנו, משהו יצור אתכם קשר בקרוב, היו זמינים. \U0001F343".format(message))
+    msg = emojize("👩‍🌾 אלו הם פרטי ההזמנה עד כה: \n\n {}\n\n תודה שרכשתם אצלנו, משהו יצור אתכם קשר בקרוב, היו זמינים. \U0001F343".format(message))
     context.bot.send_message(chat_id=update.effective_message.chat_id, text=msg)
-    message_admin = emojize("\U0000200F\U0001F343 \U0001F343 \U0001F343\n {}\n \U0001F343 \U0001F343 \U0001F343".format(message))
+    message_admin = emojize("\U0001F343 \U0001F343 \U0001F343\n {}\n \U0001F343 \U0001F343 \U0001F343".format(message))
 
     context.bot.send_message(chat_id=CHATID, text=message_admin)
     sleep(2)

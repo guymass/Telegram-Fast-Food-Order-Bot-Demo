@@ -17,7 +17,7 @@ def welcome(update, context):
         fullname = str(firstName) #+ " " +  str(lastName)
 
     category = context.user_data
-    reply_text = "\U0000200F \U0001F354 ברוכים הבאים {}\n  להתחלה לחצו על <b>/Start</b>\n".format(fullname)
+    reply_text = " \U0001F354 ברוכים הבאים {}\n  להתחלה לחצו על <b>/Start</b>\n".format(fullname)
     """star_keyboard = []
     star_keyboard =  [[InlineKeyboardButton("התחל", callback_data="restart")]]
     star_keyboard = list(star_keyboard)

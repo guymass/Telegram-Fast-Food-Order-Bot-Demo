@@ -16,7 +16,7 @@ def myorders(update, context):
     update.message.reply_text(user_id)
     result = db.completed.find({})
     val = ""
-    orders_msg = emojize( "\U0000200F <b> שלום {} להלן רשימת ההזמנות שביצעתם: </b>\n\n".format(username))
+    orders_msg = emojize( " <b> שלום {} להלן רשימת ההזמנות שביצעתם: </b>\n\n".format(username))
     update.message.reply_text(orders_msg, parse_mode='HTML')
     
     # Initialize some vars

@@ -104,12 +104,12 @@ def handle_write_address(update, context):
 
 menu_dict={
             # state string : text
-            "add_comment": "\U0000200F \U0001F4AC הוסיפו הערה",
-            "write_address": "\U0000200F \U0001F697 הוסיפו כתובת",
-            "location_button": "\U0000200F \U0001F4E1 שיתוף מיקום",
-            "phone_button": "\U0000200F \U0000260E שיתוף טלפון",
-            "approve": "\U0000200F \U00002705 אישור",
-            "cancel": "\U0000200F \U0000274C ביטול",
+            "add_comment": " \U0001F4AC הוסיפו הערה",
+            "write_address": " \U0001F697 הוסיפו כתובת",
+            "location_button": " \U0001F4E1 שיתוף מיקום",
+            "phone_button": " \U0000260E שיתוף טלפון",
+            "approve": " \U00002705 אישור",
+            "cancel": " \U0000274C ביטול",
         }
 
 
@@ -191,7 +191,7 @@ def complete_order(update, context):
         total_order_payment = doc['total']"""
 
     context.user_data['Total'] = total_order_payment
-    ordered_items_list = "\U0000200F \U00002668 להלן פרטי ההזמנה שלכם: \U00002668 \n\n"
+    ordered_items_list = " \U00002668 להלן פרטי ההזמנה שלכם: \U00002668 \n\n"
     cursor_cart = db.cart.find({})
     OrderId = randomCartId
     UserId = user_id
@@ -210,7 +210,7 @@ def complete_order(update, context):
     ordered_items_list += "מספר הזמנה: " + str(OrderId) + "\n" + "שם הזמנה: " + str(FullName) + "\n"
     ordered_items_list += "שם משתמש: " + str(UserName) + "\n" + "מספר זיהוי: " + str(UserId) + "\n\n"
     ordered_items_list += "\U0000260E מספר טלפון: " + str(user_phone) + "\n \U0001F697 כתובת משלוח: " + str(user_address) + "\n\U0001F4AC הערות: " + str(user_comment) + "\n\n"
-    ordered_items_list += "\U0000200F \U00002668 הפריטים שהוזמנו: \U00002668 \n\n"
+    ordered_items_list += " \U00002668 הפריטים שהוזמנו: \U00002668 \n\n"
     
     # clear the first cart CreateRecord
     #result = db.cart.find_one_and_delete({"CartId": randomCartId})
@@ -220,7 +220,7 @@ def complete_order(update, context):
             
             item_name = str(cur['Order'])
             item_price = cur['Price']
-            ordered_items_list += "\U0000200F \U00002705 " + str(item_name) + " " + str(item_price) + " ש\"ח \n"
+            ordered_items_list += " \U00002705 " + str(item_name) + " " + str(item_price) + " ש\"ח \n"
 
         else:
             print("Error Something happened, maybe the cart or user are not created!!")
@@ -236,9 +236,9 @@ def complete_order(update, context):
     
     reply_text = emojize(ordered_items_list)
 
-    back_button = emojize("\U0000200F \U000021AA חזרה")
-    cancel_text = emojize("\U0000200F \U00002716 ביטול")
-    completed_text = emojize("\U0000200F \U00002611 אשר הזמנה")
+    back_button = emojize(" \U000021AA Back")
+    cancel_text = emojize(" \U00002716 Cancel")
+    completed_text = emojize(" \U00002611 Approve")
 
     product_keyboard =  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_done")]]
     product_keyboard = list(product_keyboard)

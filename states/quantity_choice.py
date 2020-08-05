@@ -2,6 +2,12 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from lib import (deco, states)
 from lib.database import db
 
+
+#######################################################
+# This File is not needed to run the bot but serves as an older example of how I tried to work with Telegra Polls
+# If you choose to delete this file make sure to remove it also from the __init__.py file.
+#
+
 @deco.run_async
 @deco.register_state_callback(states.FIRST, pattern='^qty[1-6]$', pass_user_data=True, pass_chat_data=True,  pass_update_queue=True)
 def quantity_choice(update, context):
@@ -25,7 +31,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
     elif keyword == "qty2":
@@ -40,7 +46,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
     elif keyword == "qty3":
@@ -55,7 +61,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
     elif keyword == "qty4":
@@ -70,7 +76,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
     elif keyword == "qty5":
@@ -85,7 +91,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
     elif keyword == "qty6":
@@ -100,7 +106,7 @@ def quantity_choice(update, context):
         },upsert=True
         )
 
-        query.edit_message_text("\U0000200F 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
+        query.edit_message_text(" 👩‍🌾 מצויין! בחרתם: {} \n".format(category))
         pass
 
 
@@ -111,6 +117,6 @@ def quantity_choice(update, context):
     cancel_keyboard = list(cancel_keyboard)
     reply_markup_cancel = InlineKeyboardMarkup(cancel_keyboard)
 
-    query.edit_message_text(text="\U0000200F 👩‍🌾 מצויין! בחרתם {} \n\n 💬 אנא רשמו ושלחו לי את שמכם המלא, אני ממתין...⏳".format(category), reply_markup=reply_markup_cancel)
+    query.edit_message_text(text=" 👩‍🌾 מצויין! בחרתם {} \n\n 💬 אנא רשמו ושלחו לי את שמכם המלא, אני ממתין...⏳".format(category), reply_markup=reply_markup_cancel)
 
     return states.SECOND

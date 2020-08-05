@@ -26,11 +26,11 @@ def typing_order_address(update, context):
         },upsert=True
         )
 
-        update.message.reply_text("\U0000200F 👩‍🌾 אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על ביטול!\n\n 💬אנא שלחו לי כתובת למשלוח, אני ממתין...⏳", reply_markup=reply_markup_cancel)
+        update.message.reply_text(" 👩‍🌾 אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על ביטול!\n\n 💬אנא שלחו לי כתובת למשלוח, אני ממתין...⏳", reply_markup=reply_markup_cancel)
         return states.FORTH
 
     elif category.isdecimal() != 1:
-        update.message.reply_text("\U0000200F 👩‍🌾 אנא שלחו רק מספרים!\n\n 💬אנא שלחו מספר נייד עדכני, אני ממתין...⏳", reply_markup=reply_markup_cancel)
+        update.message.reply_text(" 👩‍🌾 אנא שלחו רק מספרים!\n\n 💬אנא שלחו מספר נייד עדכני, אני ממתין...⏳", reply_markup=reply_markup_cancel)
 
     elif category.isdecimal() == 0:
         #typing_order_address(update, context)
