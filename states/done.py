@@ -65,7 +65,7 @@ def done(update, context):
     doc = db.completed.find_one_and_update(
     {"OrderId": OrderId},
     {"$set":
-        {"TotalSum": int(total_user_data)}
+        {"TotalSum": total_user_data}
     },upsert=True
     )
     completed_order_message += "\U0001F4B3 Total: " + str(total_user_data) + " $ \n\n"

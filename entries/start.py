@@ -58,7 +58,8 @@ def start(update, context):
     res = db.logo.find_one({"ImageText":"logo"})
     url = res['ImageId']
     msg = "\U0001F32E \U0001F32F \U0001F354 \U0001F969 \U0001F357 \U0001F371 \U0001F959 \U0001F964 \U0001F35F \U0001F957 \n\n"
-    msg += " \U0001F4CB Welcome {} to Fast Food Order demo bot.\n select the items you wish to order from the different menues and when you are ready to complete your order just hit the Approve button. Please configure and admin group for the bot and configure its group ID to allow the bot the send the orders to it. \n\n".format(fullname)+"\n\n"
+    msg += " \U0001F4CB Welcome {} to Fast Food Order demo bot.\n select the items you wish to order from the different menues and when you are ready to complete your order just hit the Approve button. Please configure and admin group for the bot and configure its group ID to allow the bot the send the orders to it. \n\n".format(fullname) \
+            + "\n\nTo visit the bots management group to view incoming orders please open this link https://t.me/FastFoodBotGroup"
     message = emojize(str(msg))
     user_full_details = emojize(str(user_id) + " - " + str(username))
     context.bot.send_photo(chat_id, url, message, parse_mode='HTML')

@@ -72,7 +72,7 @@ def poll2(answer, update, context):
     global keys
     tortia_side_choice = ["Fried Chips", "Onion Rings", "Fried Cabbage", "Potatos"]
     
-    print(context.bot_data["poll1"]["answer"])
+    #print(context.bot_data["poll1"]["answer"])
     context.user_data['Poll1Answer'] = context.bot_data["poll1"]["answer"]
     cancel_text = emojize(" \U00002716 Cancel")
     back_button = emojize(" \U000021AA Back")
