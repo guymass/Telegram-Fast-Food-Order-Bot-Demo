@@ -9,7 +9,9 @@ from time import sleep
 def start_order(update, context):
     query = update.callback_query
     query.answer()
-    text = query
+    text = 
+    context.user_data["user_cart"]={}
+    
     user_id = context.user_data['user_id']
     CartId = context.user_data['CartId']
     cursor_cart = db.cart.find({})

@@ -103,9 +103,14 @@ def finish(choices, update, context):
     #text+="\n \U0000200F סלטים: "+str(context.chat_data[keys[0]]["answer"])+"\n"
     #text+="\U0000200F תוספת: "+str(context.chat_data[keys[1]]["answer"])+"\n"
 
-    data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(hamburger_dish_text), 'Price': user_hamburger_price }
-    db.cart.insert_one(data)
-    
+    hamburger_data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(hamburger_dish_text), 'Price': user_hamburger_price }
+    db.cart.insert_one(hamburger_data)
+
+    context.user_data["user_cart"]["CartId"] = randomCartId
+    context.user_data["user_cart"]["UserOrderId"] = user_id
+    context.user_data["user_cart"]["HumOrder"] = hamburger_dish_text
+    context.user_data["user_cart"]["HumPrice"] = user_hamburger_price
+
     reply_text = "\U0000200F להלן פרטי המנה שהזמנתם: \n"
     reply_text += "\n \U0000200F "+str(hamburger_dish_text)+"\n"
 
