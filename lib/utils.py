@@ -152,11 +152,11 @@ class multi_selection_widget():
     dp : telegram.ext.Dispatcher
     keyboard : List[List[InlineKeyboardButton]]
     """
-    def __init__(self, options=[], question="אמא בחרו:  " ,
+    def __init__(self, options=[], question="Please Choose:  " ,
     add_confirm_button=True, spacing=5, callback=None, callback_data=None, 
-    extra_buttons=[], cancel_buttons=[], confirm_button_text="OK", single_option=False, n_columns=1, 
+    extra_buttons=[], cancel_buttons=[], confirm_button_text="Approve", single_option=False, n_columns=1, 
     checked_symbol="✓", unchecked_symbol="✗", autoremove=True,payload_key="last_multi_sel",
-    chosen=[], alert_message_text="אנא בחרו לפחות תוספת אחת מהרשימה."):
+    chosen=[], alert_message_text="Please select at least one item from the list."):
         """
         Parameters
         ----------

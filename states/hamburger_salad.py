@@ -77,7 +77,7 @@ def poll2(answer, update, context):
         checked_symbol="✅", 
         unchecked_symbol="☑️",
         payload_key=payload_key,
-        confirm_button_text="OK",
+        confirm_button_text="Approve",
         cancel_buttons=[
             InlineKeyboardButton(cancel_text, callback_data="cancel"),
             InlineKeyboardButton(back_button, callback_data="poll1")
