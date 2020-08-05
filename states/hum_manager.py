@@ -33,11 +33,11 @@ def hum_manager(update, context):
     make_title = ""
 
     if hum_make_keyword == "cb_medium_humburger":
-        make_title = "מדיום"
+        make_title = "Medium"
     elif hum_make_keyword == "cb_well_humburger":
-        make_title = "מדיום - עשוי"
+        make_title = "Medium Well"
     elif hum_make_keyword == "cb_welldone_humburger":
-        make_title = "עשוי היטב"
+        make_title = "Well Done"
 
 
     hum_list = ['cb_medium_humburger', 'cb_well_humburger', 'cb_welldone_humburger']
@@ -59,34 +59,28 @@ def hum_manager(update, context):
 
             if hum_make_selection == "cb_hum_extra":
                 meal_text += str(selected_humburger_title) + ' -> ' + str(make_title)
-                meal_text += " כולל תוספות ב- 10 $ \n"
-                price = int(sel['Price'] + 10 )
+                meal_text += " SizeMeUp for 5$ \n"
+                price = int(sel['Price'] + 5 )
                 context.user_data['UserSelectedHamburger'] = meal_text
                 context.user_data['UserHamburgerPrice'] = price
-                #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price': int(price)}
-                #db.cart.insert_one(data)
                 print("Extra Meal >> : " + str(meal_text))
 
             elif sel['callback'] in hum_titles:
                 meal_text += sel['ItemName'] + ' ' + str(make_title)
                 context.user_data['UserSelectedHamburger'] = meal_text
                 context.user_data['UserHamburgerPrice'] = sel['Price']
-                #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price':int(sel['Price'])  }
-                #db.cart.insert_one(data)
                 print("Humburger Meal >> : " + str(meal_text))
 
-            #print("ארוחה עודכנה בהצלחה")
+
         else: 
 
             pass
-    reply_text += emojize(" \U0001F354 אנא בחרו את התוספות למנה {}. \U0001F354 \n\n".format(meal_text))
-#    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
-
+    reply_text += emojize(" \U0001F354 Please Choose the salads for {}. \U0001F354 \n\n".format(meal_text))
 
     hamburger_sald_choice = emojize(" \U0001F957 Salad Choice")
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
-    #completed_text = emojize(" \U00002611 אישור הזמנה")
+
     product_keyboard +=  [[InlineKeyboardButton(hamburger_sald_choice, callback_data="cb_hamburger_salad")]]
     
 
