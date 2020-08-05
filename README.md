@@ -6,7 +6,7 @@ Create a settings.py file on the root directory with the content:
 
 ```python
 token="XXXXXXX"  #telegram bot api token
-pickle_logs = "babis.log"
+pickle_logs = "example.log"
 timeout = 900
 
 # mongo config
