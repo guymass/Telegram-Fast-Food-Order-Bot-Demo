@@ -32,17 +32,17 @@ def jabetas_manager(update, context):
         print(ex['callback'])
 
         if selection_extras == ex['callback']:
-            meal_text = str(ex['ItemName']) + ' ' + str(ex['Price']) + " ש\"ח"
+            meal_text = str(ex['ItemName']) + ' ' + str(ex['Price']) + " $"
             data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':ex['ItemName'], 'Price': ex['Price']}
             db.cart.insert_one(data)
         else:
             pass
 
-    reply_text = emojize(" \U0001F32F בחירתכם {} נשמרה בהזמנה, המשיכו בהזמנה או לחצו על הזמן עכשיו לסיום ההזמנה. \U0001F32F \n\n".format(meal_text))
+    reply_text = emojize(" \U0001F32F Your meal selection of {} was saved! \U0001F32F \n\n".format(meal_text))
 
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
-    completed_text = emojize(" \U00002611 הזמן עכשיו")
+    completed_text = emojize(" \U00002611 Approve")
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]
     product_keyboard = list(product_keyboard)

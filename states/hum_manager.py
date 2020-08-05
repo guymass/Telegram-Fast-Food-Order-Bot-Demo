@@ -59,7 +59,7 @@ def hum_manager(update, context):
 
             if hum_make_selection == "cb_hum_extra":
                 meal_text += str(selected_humburger_title) + ' -> ' + str(make_title)
-                meal_text += " כולל תוספות ב- 10 ש\"ח \n"
+                meal_text += " כולל תוספות ב- 10 $ \n"
                 price = int(sel['Price'] + 10 )
                 context.user_data['UserSelectedHamburger'] = meal_text
                 context.user_data['UserHamburgerPrice'] = price

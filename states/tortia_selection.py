@@ -28,7 +28,7 @@ def tortia_selection(update, context):
 
         button_name = emojize(size['SizeName'])
         price = str(size['Price'])
-        button_name += emojize(" " + str(price) + " ש\"ח")
+        button_name += emojize(" " + str(price) + " $")
 
         button_callback = size['callback']
 

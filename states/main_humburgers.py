@@ -21,14 +21,14 @@ def main_humburgers(update, context):
     user_id = query.from_user.id
     product_keyboard = []
     
-    reply_text = emojize(" \U0001F354 לבחירתכם מבחר המבורגרים עשויים לטעמכם \U0001F354 \n\n")
+    reply_text = emojize(" \U0001F354 Selection of Hamburgers: \U0001F354 \n\n")
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
     for humb in db.humburger.find({}):
 
         button_name = emojize(" \U0001F534 " + str(humb['ItemName']))
         price = humb['Price']
-        button_name += emojize(" " + str(price) + " ש\"ח")
+        button_name += emojize(" " + str(price) + " $")
 
         button_callback = humb['callback']
 
@@ -41,7 +41,7 @@ def main_humburgers(update, context):
 
 
 
-    completed_text = emojize(" \U00002611 הזמן עכשיו")
+    completed_text = emojize(" \U00002611 Approve")
 
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]

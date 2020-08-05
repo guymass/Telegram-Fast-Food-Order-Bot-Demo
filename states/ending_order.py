@@ -2,7 +2,10 @@ from telegram.ext import Filters
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from lib import (deco, states)
 from lib.database import db
-
+#######################################################
+# This File is not needed to run the bot but serves as an older example of how I tried to work with Telegra Polls
+# If you choose to delete this file make sure to remove it also from the __init__.py file.
+#
 @deco.run_async
 @deco.register_state_message(states.FIFTH, Filters.text, pass_user_data=True, pass_chat_data=True,  pass_update_queue=True)
 def ending_order(update, context):
@@ -15,7 +18,7 @@ def ending_order(update, context):
     print("TYPING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + str(text))
 
     cancel_keyboard = []
-    cancel_keyboard =  [[InlineKeyboardButton("✅ אישור", callback_data="done")], [InlineKeyboardButton("❌ ביטול", callback_data="cancel")]]
+    cancel_keyboard =  [[InlineKeyboardButton("✅ Approve", callback_data="done")], [InlineKeyboardButton("❌ Cancel", callback_data="cancel")]]
     cancel_keyboard = list(cancel_keyboard)
     reply_markup_cancel = InlineKeyboardMarkup(cancel_keyboard)
 
@@ -28,5 +31,5 @@ def ending_order(update, context):
         },upsert=True
         )
 
-        update.message.reply_text(" 👩‍🌾 אתם יכולים לבטל את ההזמנה בכל שלב על ידי לחיצה על ביטול!\n\n 👩‍🌾 תודה רבה שרכשתם אצלנו, לאישור ההזמנה לחצו על אישור.\n", reply_markup=reply_markup_cancel)
+        update.message.reply_text("Thank you for you order, click approve to complete or cancel to exit.", reply_markup=reply_markup_cancel)
     return states.SIXTH

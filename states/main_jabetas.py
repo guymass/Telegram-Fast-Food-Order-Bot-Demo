@@ -27,7 +27,7 @@ def main_jabetas(update, context):
 
         button_name = emojize(" \U0001F7E0 " + str(item['ItemName']))
         price = str(item['Price'])
-        button_name += emojize(" " + str(price) + " ש\"ח")
+        button_name += emojize(" " + str(price) + " $")
 
         button_callback = item['callback']
 
@@ -35,14 +35,14 @@ def main_jabetas(update, context):
         product_keyboard += [[InlineKeyboardButton(button_name, callback_data=button_callback)]]
 
     
-    reply_text = emojize(" \U0001F32F לבחירתכם מבחר ג'בטות פריכות, חמות וטעימות \U0001F32F \n\n")
+    reply_text = emojize(" \U0001F32F Selection of Jabeta Sandwiches: \U0001F32F \n\n")
     
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
 
 
 
-    #completed_text = emojize(" \U00002611 הזמן עכשיו")
+    completed_text = emojize(" \U00002611 Approve")
 
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")]]

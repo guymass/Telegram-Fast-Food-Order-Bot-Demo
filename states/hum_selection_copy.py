@@ -28,8 +28,8 @@ def hum_selection_copy(update, context):
 
             if hum_selection_keyword == "cb_hum_extra":
                 context.user_data['HumburgerExtra'] = hum_selection_keyword
-                reply_text = emojize(" \U0001F354 בחירתכם לתוספת עבור 10 ש\"ח התקבלה \U0001F354 \n\n")
-                meal_text = "תוספת ב- 10 ש\"ח"
+                reply_text = emojize(" \U0001F354 Topup for 5$ was added! \U0001F354 \n\n")
+                meal_text = "Topup for 5$"
                 #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price':sel['Price']  }
                 doc = db.cart.find_one_and_update({"CartId": cart_id, 'UserOrderId':user_id,}, {"$set": {"HumburgerExtra": meal_text}}, upsert=True)
                 doc2 = db.cart.find_one_and_update({"CartId": cart_id, 'UserOrderId':user_id,}, {'$inc':{"Price":10, "metrics.orders": 1 }}, upsert=True)
@@ -37,15 +37,15 @@ def hum_selection_copy(update, context):
     
             elif hum_selection_keyword in hum_list :
                 context.user_data['HumburgerSelection'] = hum_selection_keyword
-                reply_text = emojize(" \U0001F354 אנא בחרו את מידת העשייה! \U0001F354 \n\n")
+                reply_text = emojize(" \U0001F354 Please select how you want your hamburger made. \U0001F354 \n\n")
         else:
             pass
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
 
-    medium_button = emojize(" \U0001F969 מדיום")
-    well_button = emojize(" \U0001F969 עשוי")
-    welldone_button = emojize(" \U0001F969 עשוי היטב")
+    medium_button = emojize(" \U0001F969 Medium")
+    well_button = emojize(" \U0001F969 Done")
+    welldone_button = emojize(" \U0001F969 Well Done")
     product_keyboard +=  [[InlineKeyboardButton(medium_button, callback_data="cb_medium_humburger"), InlineKeyboardButton(well_button, callback_data="cb_well_humburger"), InlineKeyboardButton(welldone_button, callback_data="cb_welldone_humburger")]]
 
 

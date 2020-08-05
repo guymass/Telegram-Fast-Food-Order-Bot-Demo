@@ -37,7 +37,7 @@ def jabeta_salad(update, context):
 
 
 
-    reply_text = emojize("\n  בחירתכם {} התקבלה.".format(user_jabeta_selection))
+    reply_text = emojize("\nYour selection {} was saved!".format(user_jabeta_selection))
     salad_manager = emojize(" \U000021AA Approve")
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
@@ -45,7 +45,7 @@ def jabeta_salad(update, context):
     payload_key=keys[0]
     poll=utils.multi_selection_widget(
         options=questions_all_salads,
-        question=" \U0001F371  אנא בחרו את הסלטים למנה זו. \n",
+        question=" \U0001F371 Please choose the salads for this course. \n",
         n_columns=2,
         spacing=5,        
         checked_symbol="✅", 
@@ -102,10 +102,7 @@ def finish(choices, update, context):
     selected_salads = ", ".join(context.user_data[keys[0]]["answer"])
     selected_side = ", ".join(context.user_data[keys[1]]["answer"])
 
-    jabeta_dish_text = user_jabeta_selection + ", עם התוספות הבאות: \n סלטים: {}".format(selected_salads) + "\nתוספת: {} ".format(selected_side)
-    #text=""
-    #text+="\n  סלטים: "+str(context.chat_data[keys[0]]["answer"])+"\n"
-    #text+=" תוספת: "+str(context.chat_data[keys[1]]["answer"])+"\n"
+    jabeta_dish_text = user_jabeta_selection + ", with the following salads: \n{}.".format(selected_salads) + "\nSide Course, {} ".format(selected_side)
 
     jabeta_data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(jabeta_dish_text), 'Price': user_jabeta_price }
     db.cart.insert_one(jabeta_data)
@@ -114,10 +111,10 @@ def finish(choices, update, context):
     context.user_data["user_cart"]["JabetaOrder"] = jabeta_dish_text
     context.user_data["user_cart"]["JabetaPrice"] = user_jabeta_price
 
-    reply_text = " להלן פרטי המנה שהזמנתם: \n"
+    reply_text = "You Order Details: \n"
     reply_text += "\n  "+str(jabeta_dish_text)+"\n"
 
-    reply_text += "להוספת שתיה בחרו מתפריט המשקאות."
+    reply_text += "Would you like to add a cold drink?"
     drinks_button = emojize(" \U0001F964 Cold Drinks")
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")

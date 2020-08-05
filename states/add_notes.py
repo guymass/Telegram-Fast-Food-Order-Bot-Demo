@@ -3,6 +3,11 @@ from telegram import (InlineKeyboardButton, InlineKeyboardMarkup)
 from lib import (deco, states)
 from lib.database import db
 
+#######################################################
+# This File is not needed to run the bot but serves as an older example of how I tried to work with Telegra Polls
+# If you choose to delete this file make sure to remove it also from the __init__.py file.
+#
+
 @deco.run_async
 @deco.register_state_message(states.FORTH, Filters.text, pass_user_data=True, pass_chat_data=True, pass_update_queue=True)
 def add_notes(update, context):
@@ -25,5 +30,5 @@ def add_notes(update, context):
         },upsert=True
         )
 
-        update.message.reply_text(" 👩‍🌾 אם יש לכם הערה להוסיף אנא רשמו אותה כעת או כתבו \"ללא\" ושלחו, אני ממתין...⏳", reply_markup=reply_markup_cancel)
+        update.message.reply_text("Another way of trying to get notes from user, this file is not needed and is an older version.", reply_markup=reply_markup_cancel)
         return states.FIFTH

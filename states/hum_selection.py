@@ -43,23 +43,19 @@ def hum_selection(update, context):
         if hum_selection_keyword == "cb_hum_extra":
             context.user_data['HumburgerExtra'] = hum_selection_keyword
              
-            reply_text = emojize(" \U0001F354 בחירתכם לתוספת ב- 10 ש\"ח התקבלה \U0001F354 \n\n")
-            meal_text = "תוספת עבור {} ב- 10 ש\"ח".format(cart['Order'])
-            #data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price':sel['Price']  }
-            #doc = db.cart.find_one_and_update({"CartId": cart_id, 'UserOrderId':user_id,}, {"$set": {"Order": meal_text}}, upsert=True)
-            #doc2 = db.cart.find_one_and_update({"CartId": cart_id, 'UserOrderId':user_id,}, {'$inc':{"Price":10 }}, upsert=True)
-            #data = {'CartId':cart_id, 'UserOrderId':user_id, 'Order':str(meal_text), 'Price': 10}
-            #db.cart.insert_one(data)
+            reply_text = emojize(" \U0001F354 Topup for 5$ was added! \U0001F354 \n\n")
+            meal_text = "Topup for 5$ was added to {} ".format(cart['Order'])
+
         else:
             pass
     
     if hum_selection_keyword in hum_list :
         context.user_data['HumburgerSelection'] = hum_selection_keyword
-        reply_text = emojize(" \U0001F354 אנא בחרו את מידת העשייה! \U0001F354 \n\n")
+        reply_text = emojize(" \U0001F354 Please select how you want your hamburger made. \U0001F354 \n\n")
 
-        medium_button = emojize(" \U0001F969 מדיום")
-        well_button = emojize(" \U0001F969 עשוי")
-        welldone_button = emojize(" \U0001F969 עשוי היטב")
+        medium_button = emojize(" \U0001F969 Medium")
+        well_button = emojize(" \U0001F969 Done")
+        welldone_button = emojize(" \U0001F969 Well Done")
         product_keyboard +=  [[InlineKeyboardButton(medium_button, callback_data="cb_medium_humburger"), InlineKeyboardButton(well_button, callback_data="cb_well_humburger"), InlineKeyboardButton(welldone_button, callback_data="cb_welldone_humburger")]]
 
 

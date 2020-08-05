@@ -28,6 +28,6 @@ def total(update, context):
     for i in range(0, result.count()):
         sum = sum + total_orders[i]"""
 
-    msg = emojize(" סיכום סך הזמנות {} ש\"ח ".format(total))
+    msg = emojize(" סיכום סך הזמנות {} $ ".format(total))
     print(msg)
     context.bot.send_message(chat_id, msg)

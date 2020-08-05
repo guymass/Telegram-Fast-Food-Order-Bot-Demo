@@ -79,10 +79,10 @@ def extra_manager(update, context):
             print("ANSWER POLL:" + str(ret))
 
     sleep(1)
-    reply_text = emojize("\n  בחירתכם {} התקבלה.")
+    reply_text = emojize("\n Your selection of {} was saved!")
 
     #back_button = emojize(" \U000021AA Back")
-    approve_salad_first_selection = emojize(" \U000021AA אשרו בחירה")
+    approve_salad_first_selection = emojize(" \U000021AA Approve")
     cancel_text = emojize(" \U00002716 Cancel")
     #completed_text = emojize(" \U00002611 הזמן עכשיו")
 

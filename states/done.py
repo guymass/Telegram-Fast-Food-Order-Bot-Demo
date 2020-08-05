@@ -23,9 +23,9 @@ def done(update, context):
     total_user_data = user_data['Total']
 
     completed_order_message = " \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336\n\n"
-    completed_order_message += "\U00002139 מספר הזמנה: " + str(OrderId) + "\n\U00002139 " + "שם המזמין: " + str(FullName) + "\n\U00002139 " + "שם משתמש: " + str(UserName) + "\n\U00002139 " + "מספר זיהוי: " + str(UserId) + "\n\n"
-    completed_order_message += "\U0000260E מספר טלפון: " + str(user_phone) + "\n \U0001F697 כתובת משלוח: " + str(user_address) + "\n\U0001F4AC הערות: " + str(user_comment) + "\n\n"
-    completed_order_message += "\U0001F514 להלן רשימת הפריטים שהוזמנו: \n"
+    completed_order_message += "\U00002139 Order Number: " + str(OrderId) + "\n\U00002139 " + "Order Name: " + str(FullName) + "\n\U00002139 " + "User Name: " + str(UserName) + "\n\U00002139 " + "User ID: " + str(UserId) + "\n\n"
+    completed_order_message += "\U0000260E Telephone: " + str(user_phone) + "\n \U0001F697 Address: " + str(user_address) + "\n\U0001F4AC Notes: " + str(user_comment) + "\n\n"
+    completed_order_message += "\U0001F514 Your Complete Order Details: \n"
    
     completed_order = []
     order_item = {
@@ -56,7 +56,7 @@ def done(update, context):
             {"$set":
                 {Item: ItemOrdered, Price: int(ItemPrice)}
             },upsert=True)
-            completed_order_message += "\U00002705 שם פריט: " + str(ItemOrdered) + " " + str(ItemPrice) + " ש\"ח \n"
+            completed_order_message += "\U00002705 Item Name: " + str(ItemOrdered) + " " + str(ItemPrice) + " $ \n"
 
         else:
             print("Error Something happened, maybe the cart or user are not created!!")
@@ -68,7 +68,7 @@ def done(update, context):
         {"TotalSum": int(total_user_data)}
     },upsert=True
     )
-    completed_order_message += "\U0001F4B3 סך הכל לתשלום: " + str(total_user_data) + " ש\"ח \n\n"
+    completed_order_message += "\U0001F4B3 Total: " + str(total_user_data) + " $ \n\n"
     completed_order_message += "\U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336     \U0001F336\n\n"
 
     context.bot.send_message(chat_id=CHATID, text=completed_order_message)
@@ -77,10 +77,10 @@ def done(update, context):
     print("TOTAL ORDER PAYMENT == " + str(total_user_data))
     #print("COMPLETE ORDER PAYMENT == " + str(complete_order_payment))
     
-    reply_text = " \U0001F4CB  הזמנתכם התקבלה במערכת! אנו ניצור עמכם קשר בקרוב להשלמת פרטי התשלום ומשלוח, אנא שימו לב להודעה מאיתנו בצאט של הטלאגרם. \n"
+    reply_text = " \U0001F4CB Your order was received and we will contact oyu shortly to complete the transaction details (DEMO no charge here!)\n"
 
     done_keyboard = []
-    done_keyboard =  [[InlineKeyboardButton("סיום", callback_data="cb_end")]]
+    done_keyboard =  [[InlineKeyboardButton("Done", callback_data="cb_end")]]
     done_keyboard = list(done_keyboard)
     reply_markup_done = InlineKeyboardMarkup(done_keyboard)
     query.edit_message_text(reply_text, reply_markup=reply_markup_done)

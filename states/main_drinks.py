@@ -20,7 +20,7 @@ def main_drinks(update, context):
     user_id = query.from_user.id
     product_keyboard = []
     
-    reply_text = emojize(" \U0001F964 מבחר משקאות קלים, כל השתיה ב- 9 ש\"ח \U0001F964 \n\n")
+    reply_text = emojize(" \U0001F964 All cold drinks for 2$ \U0001F964 \n\n")
 #    text_first_button = update.callback_query.message.reply_markup.inline_keyboard[0][0].text
 
     for item in db.drinks.find({}):
@@ -35,7 +35,7 @@ def main_drinks(update, context):
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
 
-    completed_text = emojize(" \U00002611 הזמן עכשיו")
+    completed_text = emojize(" \U00002611 Approve")
 
 
     product_keyboard +=  [[InlineKeyboardButton(back_button, callback_data="cb_back"), InlineKeyboardButton(cancel_text, callback_data="cancel")],[InlineKeyboardButton(completed_text, callback_data="cb_completed")]]

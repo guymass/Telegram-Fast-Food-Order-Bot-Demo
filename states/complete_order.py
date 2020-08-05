@@ -13,23 +13,23 @@ cbs = "completed"
 def location_button(update, context):
     context.user_data["run_next"]=request_user_info
     location_button = KeyboardButton(text="location", request_location=True)
-    cancel_button = KeyboardButton(text="ביטול")
+    cancel_button = KeyboardButton(text="Cancel")
     custom_keyboard = [[ location_button, cancel_button]]
     reply_markup = ReplyKeyboardMarkup(custom_keyboard,  one_time_keyboard=True,  resize_keyboard=True)
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="אנא לחצו על שיתוף והוספת מיקום מהטלגרם.\n", 
+                     text="Please share your location with us for faster delivery. Make sure you have GPS enabled.\n", 
                      reply_markup=reply_markup)
 
 @deco.run_async
 @deco.register_state_callback("phone_button", pass_user_data=True, pass_chat_data=True,  pass_update_queue=True)
 def phone_button(update, context):
     context.user_data["run_next"]=request_user_info
-    contact_button = KeyboardButton(text="טלפון", request_contact=True)
-    cancel_button = KeyboardButton(text="ביטול")
+    contact_button = KeyboardButton(text="Telephone", request_contact=True)
+    cancel_button = KeyboardButton(text="Cancel")
     custom_keyboard = [[ contact_button, cancel_button ]]
     reply_markup = ReplyKeyboardMarkup(custom_keyboard,  one_time_keyboard=True,  resize_keyboard=True)
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="אנא לחצו על שיתוף הטלפון מהטלאגרם. \n", 
+                     text="Please share your telephone with us so we can contact you directly.\n", 
                      reply_markup=reply_markup)
 
 @deco.run_async
@@ -40,7 +40,7 @@ def location_handler(update, context):
     lat = location.latitude
     lon = location.longitude
     if lat == "" and lon == "":
-        context.user_data["UserLocation"] = "לא שותף"
+        context.user_data["UserLocation"] = "Not Shared"
     else:
         context.user_data["UserLocation"] = str(lat) + ", " + str(lon)
     print("Your coordinates: ", lat,lon)
@@ -55,7 +55,7 @@ def phone_handler(update, context):
     contact = update.effective_message.contact
     phone = contact.phone_number
     if phone == "":
-        context.user_data["UserPhone"] = "לא הוקלד"
+        context.user_data["UserPhone"] = "Not Shared"
     else:
         context.user_data["UserPhone"] = phone
     print("Your phone is: ", phone)
@@ -67,7 +67,7 @@ def phone_handler(update, context):
 def add_comment(update, context):
     context.user_data["run_next"]=handle_add_comment
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="שלחו לי את כתובתכם המלאה כהודעת טקסט יחידה.\n")
+                     text="Please type your address and send me.\n")
 
 def handle_add_comment(update, context):
     context.user_data["run_next"]=None 
@@ -78,7 +78,7 @@ def handle_add_comment(update, context):
 
     else:
         context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="אנא כתבו את הערותיכם להזמנה. כתבו הודעה אחת בלבד ושלחו אלי.")
+                     text="Please add your notes here in a single text message and send me.")
     request_user_info(update, context)
 
 @deco.run_async
@@ -86,7 +86,7 @@ def handle_add_comment(update, context):
 def write_address(update, context):
     context.user_data["run_next"]=handle_write_address
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="אנא שלחו את כתובתכם בהודעה אחת.")
+                     text="Please send me your address")
 
 def handle_write_address(update, context):
     context.user_data["run_next"]=None 
@@ -97,19 +97,19 @@ def handle_write_address(update, context):
 
     else:
         context.bot.send_message(chat_id=update.effective_chat.id, 
-                     text="אנא כתבו הודעת טקסט בלבד!")
+                     text="Only use text messages!")
     request_user_info(update, context)
 
 
 
 menu_dict={
             # state string : text
-            "add_comment": " \U0001F4AC הוסיפו הערה",
-            "write_address": " \U0001F697 הוסיפו כתובת",
-            "location_button": " \U0001F4E1 שיתוף מיקום",
-            "phone_button": " \U0000260E שיתוף טלפון",
-            "approve": " \U00002705 אישור",
-            "cancel": " \U0000274C ביטול",
+            "add_comment": " \U0001F4AC Add a Note",
+            "write_address": " \U0001F697 Send Address",
+            "location_button": " \U0001F4E1 Share Location",
+            "phone_button": " \U0000260E Share Contact",
+            "approve": " \U00002705 Approve",
+            "cancel": " \U0000274C Cancel",
         }
 
 
@@ -129,7 +129,7 @@ def request_user_info(update, context):
         print(context.user_data["final_menu"])
     final_menu=buttons_menu(
         context.user_data["final_menu"],
-        question="יש באפשרותכם לשתף עמנו את פרטי ההתקשרות שלכם על מנת שנוכל ליצור עמכם קשר להשלמת פרטי ההזמנה. אתם יכולים לדלג או לשלוח רק חלק מהפרטים כגון הערות למשלוח.\n לחיצה על אישור תשלח אלינו את ההזמנה ואנו ניצור עמכם קשר דרך צאט ישיר מול המשתמש שלכם בטלאגרם.\n",
+        question="You can share your contact, address and telephone details and also add location. These are optional, you can click the approve to complete your order and we will contact you though Telegram private chat.",
         n_columns=1
     )
     final_menu.send(update, context)
@@ -182,16 +182,8 @@ def complete_order(update, context):
         print("TOTAL SUM: >>>>>>" + str(doc['sum']))
         total_order_payment = doc['sum']
 
-    """pipe = [{'$group': {'_id': None, 'total': {'$sum': '$Price'}}}]
-    cart_aggr = db.cart.aggregate(pipeline=pipe)
-
-    total_order_payment = ""
-    for doc in db.cart.aggregate(pipeline=pipe):
-        print(doc)
-        total_order_payment = doc['total']"""
-
     context.user_data['Total'] = total_order_payment
-    ordered_items_list = " \U00002668 להלן פרטי ההזמנה שלכם: \U00002668 \n\n"
+    ordered_items_list = " \U00002668 Your Complete Order Details: \U00002668 \n\n"
     cursor_cart = db.cart.find({})
     OrderId = randomCartId
     UserId = user_id
@@ -207,10 +199,10 @@ def complete_order(update, context):
     if context.user_data["UserLocation"] != "":
         user_location = user_data["UserLocation"]
 
-    ordered_items_list += "מספר הזמנה: " + str(OrderId) + "\n" + "שם הזמנה: " + str(FullName) + "\n"
-    ordered_items_list += "שם משתמש: " + str(UserName) + "\n" + "מספר זיהוי: " + str(UserId) + "\n\n"
-    ordered_items_list += "\U0000260E מספר טלפון: " + str(user_phone) + "\n \U0001F697 כתובת משלוח: " + str(user_address) + "\n\U0001F4AC הערות: " + str(user_comment) + "\n\n"
-    ordered_items_list += " \U00002668 הפריטים שהוזמנו: \U00002668 \n\n"
+    ordered_items_list += "Order Number: " + str(OrderId) + "\n" + "Order Name: " + str(FullName) + "\n"
+    ordered_items_list += "User Name: " + str(UserName) + "\n" + "UserID: " + str(UserId) + "\n\n"
+    ordered_items_list += "\U0000260E Telephone: " + str(user_phone) + "\n \U0001F697 Address: " + str(user_address) + "\n\U0001F4AC Notes: " + str(user_comment) + "\n\n"
+    ordered_items_list += " \U00002668 Ordered Items: \U00002668 \n\n"
     
     # clear the first cart CreateRecord
     #result = db.cart.find_one_and_delete({"CartId": randomCartId})
@@ -220,7 +212,7 @@ def complete_order(update, context):
             
             item_name = str(cur['Order'])
             item_price = cur['Price']
-            ordered_items_list += " \U00002705 " + str(item_name) + " " + str(item_price) + " ש\"ח \n"
+            ordered_items_list += " \U00002705 " + str(item_name) + " " + str(item_price) + " $ \n"
 
         else:
             print("Error Something happened, maybe the cart or user are not created!!")
@@ -231,7 +223,7 @@ def complete_order(update, context):
         print("CURSOR2 >> " + str(c2['Order']) + " " + str(c2['Price']))
     
     
-    ordered_items_list +=  "\n סך לתשלום: " + str(total_order_payment) + " ש\"ח \n"
+    ordered_items_list +=  "\n Total: " + str(total_order_payment) + " $ \n"
     print("ORDER LIST TOTAL: " + str(ordered_items_list))
     
     reply_text = emojize(ordered_items_list)

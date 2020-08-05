@@ -17,11 +17,7 @@ def welcome(update, context):
         fullname = str(firstName) #+ " " +  str(lastName)
 
     category = context.user_data
-    reply_text = " \U0001F354 ברוכים הבאים {}\n  להתחלה לחצו על <b>/Start</b>\n".format(fullname)
-    """star_keyboard = []
-    star_keyboard =  [[InlineKeyboardButton("התחל", callback_data="restart")]]
-    star_keyboard = list(star_keyboard)
-    reply_markup_start = InlineKeyboardMarkup(star_keyboard)"""
+    reply_text = " \U0001F354 Welcome {}, to begin please press <b>/Start</b>".format(fullname)
     chat_id = update.effective_chat.id
     context.bot.send_photo(chat_id, url, reply_text, parse_mode='HTML')
     return ConversationHandler.END

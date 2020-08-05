@@ -29,12 +29,12 @@ def hamburger_salad(update, context):
     randomCartId = context.user_data['CartId']
     product_keyboard = []
 
-    humburger_salads = ["חסה", "בצל", "עגבנייה", "מלפפון חמוץ"]
-
+    humburger_salads = ["Lettuce", "Onion", "Tomato", "Pickle"]
+    
 
 
     #print(tortia_salad_choices )
-    reply_text = emojize("\n  בחירתכם {} התקבלה.".format(user_hamburger_selection))
+    reply_text = emojize("\nYour selection of {} was saved!".format(user_hamburger_selection))
     salad_manager = emojize(" \U000021AA Approve")
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
@@ -42,7 +42,7 @@ def hamburger_salad(update, context):
     payload_key=keys[0]
     poll=utils.multi_selection_widget(
         options=humburger_salads,
-        question=" \U0001F371  אנא בחרו את התוספות להמבורגר \n",
+        question=" \U0001F371 Please choose your hamburger toppings: \n",
         n_columns=2,
         spacing=5,        
         checked_symbol="✅", 
@@ -70,7 +70,7 @@ def poll2(answer, update, context):
     poll=utils.multi_selection_widget(
         #options=list(f"Option: {i}" for i in range(4)),
         options = tortia_side_choice,
-        question=" \U0001F35F אנא בחרו תוספת אחת!  \n",
+        question=" \U0001F35F Please select only one item!\n",
         single_option=True,
         n_columns=1,
         spacing=5,
@@ -98,10 +98,7 @@ def finish(choices, update, context):
 
     selected_salads = ", ".join(context.user_data[keys[0]]["answer"])
     selected_side = ", ".join(context.user_data[keys[1]]["answer"])
-    hamburger_dish_text = user_hamburger_selection + ", עם התוספות הבאות: \n סלטים: {}".format(selected_salads) + "\nתוספת: {} ".format(selected_side)
-    #text=""
-    #text+="\n  סלטים: "+str(context.chat_data[keys[0]]["answer"])+"\n"
-    #text+=" תוספת: "+str(context.chat_data[keys[1]]["answer"])+"\n"
+    hamburger_dish_text = user_hamburger_selection + ", with the following salads:\n {}".format(selected_salads) + "\nSide Course, {} ".format(selected_side)
 
     hamburger_data = {'CartId':randomCartId, 'UserOrderId':user_id, 'Order':str(hamburger_dish_text), 'Price': user_hamburger_price }
     db.cart.insert_one(hamburger_data)
@@ -111,10 +108,10 @@ def finish(choices, update, context):
     context.user_data["user_cart"]["HumOrder"] = hamburger_dish_text
     context.user_data["user_cart"]["HumPrice"] = user_hamburger_price
 
-    reply_text = " להלן פרטי המנה שהזמנתם: \n"
+    reply_text = "Your Order Details:\n"
     reply_text += "\n  "+str(hamburger_dish_text)+"\n"
 
-    reply_text += "להוספת שתיה בחרו מתפריט המשקאות."
+    reply_text += "Would you like to add a cold dring?"
     drinks_button = emojize(" \U0001F964 Cold Drinks")
     back_button = emojize(" \U000021AA Back")
     cancel_text = emojize(" \U00002716 Cancel")
