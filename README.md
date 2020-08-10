@@ -16,7 +16,7 @@ mongo_password = '12345678'
 mongo_port = '27017'
 mongo_collection = 'tgbot'
 
-admin_list = []
-CHATID = "anything" 
+admin_list = [] # A list of user IDs that have access to @restricted functions
+CHATID = "anything"  # A chat group ID assigned for bot administration and back-office management
 
 ```
